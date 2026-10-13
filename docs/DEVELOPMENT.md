@@ -2,7 +2,7 @@
 
 ## Repository conventions
 
-Keep internal `RansomFree` project names, service names, API identifiers and database keys stable unless a scoped compatibility change is required. User-facing documentation uses **seQuester**, **Sensors**, **actor executable** and **target file** consistently.
+Source folders and project files use `seQuester`. Keep existing assembly names, namespaces, service names, API identifiers and database keys stable unless a scoped compatibility change is required. User-facing documentation uses **seQuester**, **Sensors**, **actor executable** and **target file** consistently.
 
 Read [AGENTS.md](../AGENTS.md) and the [Product UX Contract](PRODUCT-UX-CONTRACT.md) before changing UI. Preserve existing business logic, security requirements, accessibility and diagnostic access while improving presentation.
 
@@ -16,8 +16,8 @@ The release runner is `tools/test-release.ps1`; it accepts a published server an
 
 | Test area | Representative fixtures |
 | --- | --- |
-| Server, authentication and persistence | `tests/RansomFree.Server.Tests` |
-| Canary generation/receiver behavior | `tests/RansomFree.Canary.Tests`, `tools/CanaryDocumentFixture` |
+| Server, authentication and persistence | `tests/seQuester.Server.Tests` |
+| Canary generation/receiver behavior | `tests/seQuester.Canary.Tests`, `tools/CanaryDocumentFixture` |
 | Trust and whitelist matching | `tools/WhitelistFixture`, `tools/AdvancedTrustFixture`, `tools/TrustGovernanceFixture` |
 | Event history and presentation | `tools/EventHistoryFixture`, `tools/ActivityContractFixture` |
 | Forensic acquisition and transfer | `tools/ForensicFixture`, `tools/EvidenceTransferFixture` and platform acquisition fixtures |
@@ -32,7 +32,7 @@ Run tests relevant to a change and required release gates. Separate compile, fix
 
 ```powershell
 node tools/check-product-ux.mjs --self-test
-node tools/check-product-ux.mjs src/RansomFree.Server/wwwroot/index.html
+node tools/check-product-ux.mjs src/seQuester.Server/wwwroot/index.html
 ```
 
 The mechanical checker flags deterministic issues such as obvious raw-object presentation or prohibited placeholder copy. It does not replace editorial review, actual browser inspection, keyboard testing or mobile/state coverage.

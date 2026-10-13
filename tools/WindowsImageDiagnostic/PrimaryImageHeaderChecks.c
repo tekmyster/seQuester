@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "../../src/RansomFree.WindowsKernel/PrimaryImageHeader.h"
+#include "../../src/seQuester.WindowsKernel/PrimaryImageHeader.h"
 static unsigned int checks;
 static void Check(int ok){checks++;if(!ok)ExitProcess(checks);}
 static int Kind(const WCHAR* name)

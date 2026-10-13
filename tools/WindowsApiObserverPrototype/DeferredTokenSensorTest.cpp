@@ -3,7 +3,7 @@
 #include <fltuser.h>
 #include <sddl.h>
 #include <stdio.h>
-#include "../../src/RansomFree.WindowsKernel/Protocol.h"
+#include "../../src/seQuester.WindowsKernel/Protocol.h"
 #include "CallbackTokenLabProtocol.h"
 static void Check(bool value,const char* step){if(!value){fprintf(stderr,"%s error %lu\n",step,GetLastError());ExitProcess(1);}}
 static void Log(const wchar_t* path,FILE* stream){HANDLE h=CreateFileW(path,GENERIC_WRITE,FILE_SHARE_READ,nullptr,CREATE_NEW,0,nullptr);Check(h!=INVALID_HANDLE_VALUE,"new log");CloseHandle(h);FILE* out=nullptr;Check(_wfreopen_s(&out,path,L"a",stream)==0&&out,"redirect log");setvbuf(stream,nullptr,_IONBF,0);}

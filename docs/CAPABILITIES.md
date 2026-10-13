@@ -80,7 +80,7 @@ The source catalog contains **32 mechanisms**: 19 labelled **Implemented; untest
 | Provider required | Entra login, SAML application, fake application, AWS keys, AWS infrastructure, Azure login certificate, credit card. |
 | Pending | Windows fake filesystem, sensitive command, custom executable/binary, WireGuard, Microsoft SQL Server, SVN. |
 
-Source: `src/RansomFree.Server/CallbackManagement.cs`. Exact trigger descriptions are shown by the application catalog. Provider-required entries need a configured external service; they do not become operational through local artifact generation.
+Source: `src/seQuester.Server/CallbackManagement.cs`. Exact trigger descriptions are shown by the application catalog. Provider-required entries need a configured external service; they do not become operational through local artifact generation.
 
 ## Verification reference
 

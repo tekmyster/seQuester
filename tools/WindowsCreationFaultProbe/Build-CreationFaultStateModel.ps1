@@ -5,7 +5,7 @@ $taskSdk='D:\Codex\RansomFree\kernel-attribution-20260924\toolchain\sdk\c'
 $taskOut=Join-Path $ArtifactRoot ('windows-creation-stop-model-'+$Revision)
 New-Item -ItemType Directory -Path $taskOut -ErrorAction Stop | Out-Null
 $taskSource=Join-Path $PSScriptRoot 'CreationFaultStateModel.c'
-$taskHeader=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..\src\RansomFree.WindowsKernel\CreationFaultDiagnostic.h'))
+$taskHeader=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..\src\seQuester.WindowsKernel\CreationFaultDiagnostic.h'))
 Copy-Item -LiteralPath $taskSource,$taskHeader -Destination $taskOut
 & (Join-Path $taskCompiler 'bin\Hostx64\x64\cl.exe') /nologo /std:c11 /W4 /WX /Od /GS- /Zl /DSQ_CF_MODEL_DLL=1 /c ('/I'+(Join-Path $taskCompiler 'include')) ('/I'+(Join-Path $taskSdk 'Include\10.0.26100.0\ucrt')) ('/Fo'+(Join-Path $taskOut 'CreationFaultStateModel.obj')) $taskSource
 if($LASTEXITCODE -ne 0) {throw 'CF state model compile failed'}

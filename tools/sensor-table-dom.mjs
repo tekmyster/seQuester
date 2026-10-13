@@ -16,10 +16,10 @@ try{
  ];
  let endpointItems=items,endpointStatus=200,endpointHang=false;
  await page.route('**/*',async route=>{const url=new URL(route.request().url());if(url.pathname==='/api/v1/auth/me')return route.fulfill({json:{userName:'reader',roles:['Reader'],authentication:'Local',mustChangePassword:false,mustEnrollMfa:false,mfaEnabled:false,mfaRequired:false}});if(url.pathname==='/api/v1/console/overview')return route.fulfill({json:{asOfUtc:fresh,protectionReportingClients:0,protectionActiveClients:0,protectionNeedsAttentionClients:0,nonWhitelistedAlerts:0,informationalActivity:0}});if(url.pathname==='/api/v1/console/endpoints'){if(endpointHang)return;return route.fulfill({status:endpointStatus,json:endpointStatus===200?endpointItems:{}});}return route.abort();});
- const html=fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/index.html',import.meta.url),'utf8').replace('<head>','<head><base href="https://fixture.invalid/">');await page.setContent(html);
- await page.addScriptTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/presentation.js',import.meta.url),'utf8')});
+ const html=fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/index.html',import.meta.url),'utf8').replace('<head>','<head><base href="https://fixture.invalid/">');await page.setContent(html);
+ await page.addScriptTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/presentation.js',import.meta.url),'utf8')});
  await page.evaluate(()=>{window.EventHistory={load:async()=>{},next:async()=>{},previous:async()=>{}};});
- await page.addScriptTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/console.js',import.meta.url),'utf8')});
+ await page.addScriptTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/console.js',import.meta.url),'utf8')});
  await page.getByRole('button',{name:'Sensors'}).click();await page.getByText('win-one',{exact:true}).waitFor();
  const headers=await page.locator('#fleet thead tr:first-child th').allTextContents();check(headers.join('|')==='Host|OS|Status|Monitoring|Canary / honeypot files|Version|Last contact|Access','Sensors columns cover every requested field');
  const statuses=await page.locator('#fleet-rows .sensor-status-label').allTextContents();check(statuses.includes('Monitoring')&&statuses.includes('Needs attention')&&statuses.includes('Offline')&&statuses.includes('Status unavailable')&&statuses.includes('Monitoring stopped'),'simple green/yellow/red status labels are rendered');

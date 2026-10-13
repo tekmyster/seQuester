@@ -52,7 +52,7 @@ The forensic envelope's `Version` is 1. Native and trust evidence have their own
 
 Use the server's supported sort and filter definitions rather than assuming every field is sortable or available for every source. Cursor handling belongs to the query that produced it. Keep observation time distinct from server receipt time.
 
-Source: `src/RansomFree.Server/EventHistory.cs`.
+Source: `src/seQuester.Server/EventHistory.cs`.
 
 ## Policy and workflow routes
 

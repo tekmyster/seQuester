@@ -23,16 +23,16 @@ The arrows show implemented architecture and integration paths, not universal ac
 
 | Component | Source |
 | --- | --- |
-| Management server and console | `src/RansomFree.Server` |
-| Shared event, evidence, trust and response models | `src/RansomFree.Contracts` |
-| Windows service and client pipeline | `src/RansomFree.Agent`, `src/RansomFree.Client` |
-| Windows native capture | `src/RansomFree.WindowsKernel` |
-| Linux sensor and native capture | `src/RansomFree.LinuxAgent`, `src/RansomFree.LinuxKernel` |
-| Linux audit relay | `src/RansomFree.AuditRelay`, `packaging/linux-client/audit` |
-| Callback receiver | `src/RansomFree.Receiver` |
-| Windows virtual decoys | `src/RansomFree.DecoyHost`, `src/RansomFree.WindowsDecoys` |
-| Desktop and tray interfaces | Root desktop project, `src/RansomFree.Tray`, `src/RansomFree.UnixDesktop` |
-| macOS development components | `src/RansomFree.MacAgent`; qualification is separate from Windows/Linux. |
+| Management server and console | `src/seQuester.Server` |
+| Shared event, evidence, trust and response models | `src/seQuester.Contracts` |
+| Windows service and client pipeline | `src/seQuester.Agent`, `src/seQuester.Client` |
+| Windows native capture | `src/seQuester.WindowsKernel` |
+| Linux sensor and native capture | `src/seQuester.LinuxAgent`, `src/seQuester.LinuxKernel` |
+| Linux audit relay | `src/seQuester.AuditRelay`, `packaging/linux-client/audit` |
+| Callback receiver | `src/seQuester.Receiver` |
+| Windows virtual decoys | `src/seQuester.DecoyHost`, `src/seQuester.WindowsDecoys` |
+| Desktop and tray interfaces | Root desktop project, `src/seQuester.Tray`, `src/seQuester.UnixDesktop` |
+| macOS development components | `src/seQuester.MacAgent`; qualification is separate from Windows/Linux. |
 | Wazuh collector resources | `packaging/wazuh` |
 
 ## Event lifecycle
@@ -137,6 +137,6 @@ Response policy binds an authorized action to sensor, source event, process inst
 
 ## Source references
 
-Start with `Contracts.cs`, `ForensicEvidence.cs`, `TrustIdentityContext.cs`, `ActiveResponse.cs` and `ResponseCommands.cs` in `src/RansomFree.Contracts`. Server entry points include `Program.cs`, `EventHistory.cs`, `EvidenceTransferApi.cs`, `TrustGovernance.cs`, `ResponseCommands.cs` and `ResponseCapabilities.cs`.
+Start with `Contracts.cs`, `ForensicEvidence.cs`, `TrustIdentityContext.cs`, `ActiveResponse.cs` and `ResponseCommands.cs` in `src/seQuester.Contracts`. Server entry points include `Program.cs`, `EventHistory.cs`, `EvidenceTransferApi.cs`, `TrustGovernance.cs`, `ResponseCommands.cs` and `ResponseCapabilities.cs`.
 
 Platform implementation details and qualification histories are linked from the [documentation index](README.md).

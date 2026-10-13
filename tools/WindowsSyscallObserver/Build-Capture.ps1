@@ -4,7 +4,7 @@ if(Test-Path -LiteralPath $OutputDirectory){throw 'Immutable capture build alrea
 New-Item -ItemType Directory -Path $OutputDirectory|Out-Null
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $source=Join-Path $OutputDirectory 'source'
-$names=@('tools\WindowsSyscallObserver\Capture.c','tools\WindowsSyscallObserver\Capture.h','tools\WindowsSyscallObserver\NtObserver.cpp','tools\WindowsSyscallObserver\Bridge.h','tools\WindowsSyscallObserver\Bridge.c','tools\WindowsSyscallObserver\Bridge.asm','tools\WindowsSyscallObserver\Device.c','tools\WindowsSyscallObserver\Device.h','tools\WindowsSyscallObserver\Build-Capture.ps1','src\RansomFree.WindowsKernel\Driver.c','src\RansomFree.WindowsKernel\Protocol.h')
+$names=@('tools\WindowsSyscallObserver\Capture.c','tools\WindowsSyscallObserver\Capture.h','tools\WindowsSyscallObserver\NtObserver.cpp','tools\WindowsSyscallObserver\Bridge.h','tools\WindowsSyscallObserver\Bridge.c','tools\WindowsSyscallObserver\Bridge.asm','tools\WindowsSyscallObserver\Device.c','tools\WindowsSyscallObserver\Device.h','tools\WindowsSyscallObserver\Build-Capture.ps1','src\seQuester.WindowsKernel\Driver.c','src\seQuester.WindowsKernel\Protocol.h')
 $manifest=@()
 $names+=@('tools\WindowsSyscallObserver\Wire.h')
 $names+=@('tools\WindowsSyscallObserver\CodePin.h','tools\WindowsSyscallObserver\CodePin.c')
@@ -16,7 +16,7 @@ foreach($name in $names){
  if((Get-FileHash $to).Hash-cne$hash){throw 'Source freeze mismatch'}
  $manifest+=@{Name=$name;Sha256=$hash}
 }
-$driver=[IO.File]::ReadAllText((Join-Path $source 'src\RansomFree.WindowsKernel\Driver.c'))
+$driver=[IO.File]::ReadAllText((Join-Path $source 'src\seQuester.WindowsKernel\Driver.c'))
 $start=$driver.IndexOf('static VOID CaptureToken(PACCESS_TOKEN token,SQ_TOKEN* output)')
 $end=$driver.IndexOf('static VOID CaptureActor(', $start)
 if($start-lt0-or$end-le$start){throw 'Existing token helper boundary changed'}
@@ -25,7 +25,7 @@ $generated=Join-Path $source 'tools\WindowsSyscallObserver\SharedCaptureToken.in
 $vc='C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.37.32822'
 $wdk='D:\Codex\RansomFree\kernel-attribution-20260924\toolchain\wdk\c'
 $sdk='D:\Codex\RansomFree\kernel-attribution-20260924\toolchain\sdk\c'
-$args=@('/nologo','/c','/kernel','/W4','/WX','/GS','/Zl','/Zi','/Od','/D_AMD64_','/DAMD64','/D_WIN64','/D_WIN32_WINNT=0x0603','/DNTDDI_VERSION=0x06030000',('/I'+(Join-Path $source 'src\RansomFree.WindowsKernel')),('/I'+$wdk+'\Include\10.0.26100.0\km'),('/I'+$sdk+'\Include\10.0.26100.0\shared'),('/I'+$sdk+'\Include\10.0.26100.0\ucrt'),('/I'+$vc+'\include'),('/Fo'+$OutputDirectory+'\Capture.obj'),('/Fd'+$OutputDirectory+'\Capture.pdb'),(Join-Path $source 'tools\WindowsSyscallObserver\Capture.c'))
+$args=@('/nologo','/c','/kernel','/W4','/WX','/GS','/Zl','/Zi','/Od','/D_AMD64_','/DAMD64','/D_WIN64','/D_WIN32_WINNT=0x0603','/DNTDDI_VERSION=0x06030000',('/I'+(Join-Path $source 'src\seQuester.WindowsKernel')),('/I'+$wdk+'\Include\10.0.26100.0\km'),('/I'+$sdk+'\Include\10.0.26100.0\shared'),('/I'+$sdk+'\Include\10.0.26100.0\ucrt'),('/I'+$vc+'\include'),('/Fo'+$OutputDirectory+'\Capture.obj'),('/Fd'+$OutputDirectory+'\Capture.pdb'),(Join-Path $source 'tools\WindowsSyscallObserver\Capture.c'))
 & ($vc+'\bin\Hostx64\x64\cl.exe') @args
 if($LASTEXITCODE-ne0){throw 'Capture module compile failed'}
 $bridgeArgs=@($args|Where-Object{$_-notlike'/Fo*'-and$_-notlike'/Fd*'-and$_-notlike'*.c'})

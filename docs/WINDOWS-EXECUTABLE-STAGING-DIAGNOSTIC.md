@@ -184,10 +184,10 @@ Manus R24 proposed a bounded direct-read experiment, reviewed against Microsoft'
 
 ## Modules and build boundary
 
-- `src/RansomFree.WindowsKernel/ExecutableStagingDiagnostic.h`: provisional candidates, bounded copied bytes, exact process binding, retrieval/acknowledgment, resource accounting.
-- `src/RansomFree.WindowsKernel/ImageDiagnostic.h`: one diagnostic epoch, process/cleanup hooks, stop/disconnect/unload cleanup.
-- `src/RansomFree.WindowsKernel/Driver.c`: optional successful post-CREATE and administrative communication-port integration.
-- `src/RansomFree.WindowsKernel/Build-Prototype.ps1`: explicit `-ExecutableStagingDiagnostic` switch.
+- `src/seQuester.WindowsKernel/ExecutableStagingDiagnostic.h`: provisional candidates, bounded copied bytes, exact process binding, retrieval/acknowledgment, resource accounting.
+- `src/seQuester.WindowsKernel/ImageDiagnostic.h`: one diagnostic epoch, process/cleanup hooks, stop/disconnect/unload cleanup.
+- `src/seQuester.WindowsKernel/Driver.c`: optional successful post-CREATE and administrative communication-port integration.
+- `src/seQuester.WindowsKernel/Build-Prototype.ps1`: explicit `-ExecutableStagingDiagnostic` switch.
 - `tools/WindowsImageDiagnostic/Program.cs`: independent child PID/start-time ground truth, immediate exits, renamed fixture and grouped launches, copied-file SHA-256 verification.
 
 Ordinary builds exclude this experiment. Product wire protocol remains version 4. Experimental commands 10–14 are available only in the optional build: byte retrieval, acknowledgment, health, metadata-only discovery and a metadata-only 64-slot table dump. Health is 152 bytes; table dump is 2,568 bytes. This experiment does not change the product SIEM schema, whitelist matching, alert thresholds, or central artifact upload.
@@ -258,7 +258,7 @@ R32 completed the same 21-case native matrix on WIN10, WIN11, Server 2019 and th
 
 ### Narrow implementation plan and changes
 
-- `src/RansomFree.WindowsKernel/ProcessCreationMetadata.h`, `ExecutableStagingDiagnostic.h`, `Driver.c`: copy creation-notification command line and image-open name before callback return. Distinguish reported parent PID from actual creator PID/TID/start. Match the candidate under the existing short lock, copy/lookup outside all locks, then revalidate candidate ID plus callback-owned file object before publishing. No entry pointer survives an unlock. Candidate removal during capture discards the provisional metadata; it cannot attach to a reused slot.
+- `src/seQuester.WindowsKernel/ProcessCreationMetadata.h`, `ExecutableStagingDiagnostic.h`, `Driver.c`: copy creation-notification command line and image-open name before callback return. Distinguish reported parent PID from actual creator PID/TID/start. Match the candidate under the existing short lock, copy/lookup outside all locks, then revalidate candidate ID plus callback-owned file object before publishing. No entry pointer survives an unlock. Candidate removal during capture discards the provisional metadata; it cannot attach to a reused slot.
 - Metadata is per process/candidate, immutable before publication, reference-counted by candidate and queued blob. Process exit, TTL and ACK do not retarget a record. All detach paths release their metadata reference outside locks. A separate 256-object cap bounds metadata pool use to about 1.28 MiB plus allocator overhead; refused allocation yields explicit unavailable evidence. Health operation 28 exposes allocations/frees/refusals/live count.
 - Command line cap: 2,048 UTF-16 code units (4,096 bytes); image name cap: 512 code units (1,024 bytes). Keep original/stored byte lengths, absent/invalid/truncated status and raw UTF-16 proof. Do not split a trailing surrogate pair. Invalid UTF-16 is retained in the private proof and unavailable for display. These are notification values, not authenticity verdicts or a promise of complete command lines.
 - Exact parent start is captured only for the reported-parent-equals-creator case with matching creating PID/TID, using a referenced creator process outside locks. A different designated parent remains PID-only. No current-PID lookup is used to guess designated-parent history, and no parent image path is invented. Notification creation status is recorded without claiming it is the final result of all callbacks.

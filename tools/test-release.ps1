@@ -10,7 +10,7 @@ $dotnet='C:\Program Files\dotnet\dotnet.exe'
 $server=(Resolve-Path -LiteralPath $PublishedServer).Path
 New-Item -ItemType Directory -Path (Join-Path $out 'logs') -Force|Out-Null
 Set-Location $source
-$projects=@('tests/RansomFree.Server.Tests','tests/RansomFree.Canary.Tests','tools/EventHistoryFixture','tools/ActivityContractFixture','tools/DecoyServiceFixture','tools/DecoyJobsFixture','tools/TrustGovernanceFixture','tools/WhitelistFixture','tools/ServiceDeliveryFixture','tools/DecoySessionFixture','tools/EndpointHealthSummaryFixture','tools/WindowsProtectionFixture','tools/WindowsTrustCaptureFixture','tools/WindowsAuditParserFixture','tools/AuditPacketFixture','tools/AuditHealthFixture','tools/AuditStatusFixture','tools/AuditRuleFixture','tools/TrustCacheFixture','tools/N05ServerFixture')
+$projects=@('tests/seQuester.Server.Tests','tests/seQuester.Canary.Tests','tools/EventHistoryFixture','tools/ActivityContractFixture','tools/DecoyServiceFixture','tools/DecoyJobsFixture','tools/TrustGovernanceFixture','tools/WhitelistFixture','tools/ServiceDeliveryFixture','tools/DecoySessionFixture','tools/EndpointHealthSummaryFixture','tools/WindowsProtectionFixture','tools/WindowsTrustCaptureFixture','tools/WindowsAuditParserFixture','tools/AuditPacketFixture','tools/AuditHealthFixture','tools/AuditStatusFixture','tools/AuditRuleFixture','tools/TrustCacheFixture','tools/N05ServerFixture')
 $results=@()
 $projects+=@('tools/AdvancedTrustFixture','tools/LinuxIoFixture','tools/NativeResponseFixture','tools/SyslogReceiptFixture')
 $uxLog=Join-Path $out 'logs/product-ux.txt'
@@ -20,16 +20,22 @@ if($uxExit-eq0){& 'C:\Program Files\nodejs\node.exe' (Join-Path $source 'tools/c
 $results+=@{Name='product-ux';Stage='Executed';Exit=$uxExit;Log=$uxLog}
 Write-Output ('product-ux: '+$uxExit)
 foreach($project in $projects){
- $name=Split-Path $project -Leaf
+ $projectFiles=@(Get-ChildItem -LiteralPath $project -Filter '*.csproj' -File)
+ if($projectFiles.Count-ne1){throw "Expected exactly one project file in $project"}
+ $projectFile=$projectFiles[0].FullName
+ $projectName=[IO.Path]::GetFileNameWithoutExtension($projectFile)
+ [xml]$projectDefinition=Get-Content -LiteralPath $projectFile -Raw
+ $assemblyNode=$projectDefinition.SelectSingleNode('/Project/PropertyGroup/AssemblyName')
+ $name=if($assemblyNode){$assemblyNode.InnerText}else{$projectName}
  $log=Join-Path $out ('logs/'+$name+'.txt')
- & $dotnet build (Join-Path $project ($name+'.csproj')) -c Release --artifacts-path (Join-Path $out 'artifacts') -p:NuGetAudit=false -v quiet *> ($log+'.build')
+ & $dotnet build $projectFile -c Release --artifacts-path (Join-Path $out 'artifacts') -p:NuGetAudit=false -v quiet *> ($log+'.build')
  if($LASTEXITCODE-ne0){$results+=@{Name=$name;Stage='Build';Exit=$LASTEXITCODE;Log=$log+'.build'};Write-Output ('FAIL BUILD '+$name);continue}
- $bin=Join-Path $out ('artifacts/bin/'+$name+'/release/'+$name+'.dll')
+ $bin=Join-Path $out ('artifacts/bin/'+$projectName+'/release/'+$name+'.dll')
  $params=@($bin)
  if($name-in@('RansomFree.Server.Tests','EventHistoryFixture','N05ServerFixture')){$params+=@($dotnet,$server)}
  if($name-eq'RansomFree.Canary.Tests'){
   $receiver=Join-Path $out 'receiver'
-  & $dotnet publish src/RansomFree.Receiver/RansomFree.Receiver.csproj -c Release --artifacts-path (Join-Path $out 'artifacts') -o $receiver -p:NuGetAudit=false -v quiet *> ($log+'.receiver-build')
+  & $dotnet publish src/seQuester.Receiver/seQuester.Receiver.csproj -c Release --artifacts-path (Join-Path $out 'artifacts') -o $receiver -p:NuGetAudit=false -v quiet *> ($log+'.receiver-build')
   if($LASTEXITCODE-ne0){throw 'Receiver fixture publish failed'}
   $params+=@($dotnet,(Join-Path $receiver 'RansomFree.Receiver.dll'))
  }

@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><AssemblyName>RansomFree.WindowsSyscall.Tests</AssemblyName><RootNamespace>RansomFree.WindowsSyscall.Tests</RootNamespace><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../../src/seQuester.Client/seQuester.Client.csproj" /></ItemGroup>
+</Project>

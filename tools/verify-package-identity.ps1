@@ -44,7 +44,7 @@ function CheckLauncher([string]$Path) {
 }
 $png='EF71B9131B454D20EFEF21DAC8FC3CC1B81E7834240EC41DC5AB65AF2076D139'
 $icns='C79D10FC312CBE22989CECABC126F8560E7C6C6EBB0DC4F8935B6958B80EB2B6'
-$project=Join-Path $RepoRoot 'src/RansomFree.UnixDesktop/RansomFree.UnixDesktop.csproj'
+$project=Join-Path $RepoRoot 'src/seQuester.UnixDesktop/seQuester.UnixDesktop.csproj'
 RequireFile $project
 [xml]$xml=[IO.File]::ReadAllText($project)
 $version=[string]$xml.Project.PropertyGroup.Version

@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><AssemblyName>RansomFree.Client</AssemblyName><RootNamespace>RansomFree.Client</RootNamespace><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup><ProjectReference Include="..\seQuester.Contracts\seQuester.Contracts.csproj" /></ItemGroup>
+  <ItemGroup><PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.12" /></ItemGroup>
+</Project>

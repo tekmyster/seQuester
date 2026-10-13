@@ -85,7 +85,7 @@ $vc='C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSV
 $wdk='D:\Codex\RansomFree\kernel-attribution-20260924\toolchain\wdk\c'
 $sdk='D:\Codex\RansomFree\kernel-attribution-20260924\toolchain\sdk\c'
 $objects=Join-Path $OutputDirectory 'objects';New-Item -ItemType Directory -Path $objects|Out-Null
-$include=@(('/I'+$wdk+'\Include\10.0.26100.0\km'),('/I'+$sdk+'\Include\10.0.26100.0\shared'),('/I'+$sdk+'\Include\10.0.26100.0\ucrt'),('/I'+$vc+'\include'),('/I'+(Join-Path $module 'source\tools\WindowsSyscallObserver')),('/I'+(Join-Path $module 'source\src\RansomFree.WindowsKernel')),('/I'+$research+'\capstone\include'))
+$include=@(('/I'+$wdk+'\Include\10.0.26100.0\km'),('/I'+$sdk+'\Include\10.0.26100.0\shared'),('/I'+$sdk+'\Include\10.0.26100.0\ucrt'),('/I'+$vc+'\include'),('/I'+(Join-Path $module 'source\tools\WindowsSyscallObserver')),('/I'+(Join-Path $module 'source\src\seQuester.WindowsKernel')),('/I'+$research+'\capstone\include'))
 $wdkPadding=Join-Path $OutputDirectory 'wdk-padding.h'
 $compatibility=@'
 // Intentional WDK alignment padding. No suppression on application structures.

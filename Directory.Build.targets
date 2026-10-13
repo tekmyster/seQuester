@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <SeQuesterApplication Condition="'$(MSBuildProjectName)' == 'RansomFree.DecoyHost'">true</SeQuesterApplication>
-    <SeQuesterApplication Condition="'$(MSBuildProjectName)' == 'RansomFree' Or '$(MSBuildProjectName)' == 'RansomFree.Tray' Or '$(MSBuildProjectName)' == 'RansomFree.Agent' Or '$(MSBuildProjectName)' == 'RansomFree.Server' Or '$(MSBuildProjectName)' == 'RansomFree.Receiver' Or '$(MSBuildProjectName)' == 'RansomFree.LinuxAgent' Or '$(MSBuildProjectName)' == 'RansomFree.MacAgent' Or '$(MSBuildProjectName)' == 'RansomFree.UnixDesktop'">true</SeQuesterApplication>
+    <SeQuesterApplication Condition="'$(MSBuildProjectName)' == 'seQuester.DecoyHost'">true</SeQuesterApplication>
+    <SeQuesterApplication Condition="'$(MSBuildProjectName)' == 'seQuester' Or '$(MSBuildProjectName)' == 'seQuester.Tray' Or '$(MSBuildProjectName)' == 'seQuester.Agent' Or '$(MSBuildProjectName)' == 'seQuester.Server' Or '$(MSBuildProjectName)' == 'seQuester.Receiver' Or '$(MSBuildProjectName)' == 'seQuester.LinuxAgent' Or '$(MSBuildProjectName)' == 'seQuester.MacAgent' Or '$(MSBuildProjectName)' == 'seQuester.UnixDesktop'">true</SeQuesterApplication>
   </PropertyGroup>
   <PropertyGroup Condition="'$(SeQuesterApplication)' == 'true'">
     <ApplicationIcon>$(MSBuildThisFileDirectory)Assets/Branding/sequester.ico</ApplicationIcon>
@@ -13,7 +13,7 @@
     <SeQuesterBrandInput Include="$(MSBuildThisFileDirectory)Assets/Branding/sequester.icns" ExpectedHash="C79D10FC312CBE22989CECABC126F8560E7C6C6EBB0DC4F8935B6958B80EB2B6" />
     <SeQuesterBrandInput Include="$(MSBuildThisFileDirectory)Assets/Branding/brand-assets.json" ExpectedHash="B39B0D1F4C48DC33BAB4EF4042FF5ABE9B45D5ED9314AB32EEF2F948EB004CFE" />
   </ItemGroup>
-  <ItemGroup Condition="'$(MSBuildProjectName)' == 'RansomFree.Server'">
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'seQuester.Server'">
     <SeQuesterBrandInput Include="wwwroot/brand/sequester.ico" ExpectedHash="26627790C3D1748B756751C1EEA6E3FF958A0D4F64B5A309AF3ED94BC2DFB7A1" />
     <SeQuesterBrandInput Include="wwwroot/brand/sequester-128.png" ExpectedHash="B7B01F1221F2FC2608821D3729475B9C06AD8CA2E588FC3AF18A656FAA5E6480" />
     <SeQuesterBrandInput Include="wwwroot/brand/sequester-180.png" ExpectedHash="6C6BC1CC822CF632246178A1475BCCCA19634A4AED085041EE67E8136341BA5B" />

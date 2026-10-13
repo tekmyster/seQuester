@@ -63,7 +63,7 @@ static HANDLE PsGetCurrentThreadId(void){return (HANDLE)(uintptr_t)77;}
 static NTSTATUS PsLookupProcessByProcessId(HANDLE pid,PEPROCESS* process){assert(!held);lookupCalls++;if(stopDuringLookup){stopDuringLookup=0;CfStop();}if(pid!=PsGetCurrentProcessId())return STATUS_NOT_FOUND;*process=(PEPROCESS)(uintptr_t)123;references++;return STATUS_SUCCESS;}
 static ULONGLONG PsGetProcessCreateTimeQuadPart(PEPROCESS process){(void)process;return currentCreated;}
 static VOID ObDereferenceObject(PEPROCESS process){(void)process;references--;assert(references>=0);}
-#include "../../src/RansomFree.WindowsKernel/CreationFaultDiagnostic.h"
+#include "../../src/seQuester.WindowsKernel/CreationFaultDiagnostic.h"
 static NTSTATUS DiagUnregister(VOID){assert(!held);removals++;CfStop();return removalStatus;}
 static void Reset(void)
 {

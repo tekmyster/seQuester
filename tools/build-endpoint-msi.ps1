@@ -17,7 +17,7 @@ foreach ($script in @('Install-Endpoint.ps1','Detect-Endpoint.ps1','Uninstall-En
     $sourceText=Get-Content -LiteralPath (Join-Path $repo ('packaging\windows\'+$script)) -Raw
     if ($sourceText.Contains('0.6.3') -or $sourceText.Contains('1F26AA94-2E07-4648-A0FD-1458E12EB321')) { throw 'Deployment scripts still carry the superseded package identity. Finalize release identities together.' }
 }
-[xml]$agentDefinition=Get-Content -LiteralPath (Join-Path $repo 'src\RansomFree.Agent\RansomFree.Agent.csproj') -Raw
+[xml]$agentDefinition=Get-Content -LiteralPath (Join-Path $repo 'src\seQuester.Agent\seQuester.Agent.csproj') -Raw
 $agentVersionNode=$agentDefinition.SelectSingleNode('/Project/PropertyGroup/Version')
 if ($null -eq $agentVersionNode) { throw 'Agent version is missing.' }
 $applicationVersion=$agentVersionNode.InnerText+'-dev'
@@ -32,7 +32,7 @@ $output = Join-Path $WorkRoot ('packages\windows\'+$packageVersion+'-unsigned-' 
 [IO.Directory]::CreateDirectory($env:TEMP) | Out-Null
 if (!(Test-Path -LiteralPath $Wix)) { throw 'Install the pinned wix 4.0.6 tool into WorkRoot\tools\wix4 first. See packaging/windows/README.md.' }
 foreach ($project in @('Agent','Tray','DecoyHost')) {
-    & $Dotnet publish (Join-Path $repo "src\RansomFree.$project\RansomFree.$project.csproj") --configuration Release --runtime win-x64 --self-contained true --artifacts-path (Join-Path $WorkRoot 'artifacts') --output (Join-Path $output $project) -p:PublishSingleFile=false -p:RestoreLockedMode=true
+    & $Dotnet publish (Join-Path $repo "src\seQuester.$project\seQuester.$project.csproj") --configuration Release --runtime win-x64 --self-contained true --artifacts-path (Join-Path $WorkRoot 'artifacts') --output (Join-Path $output $project) -p:PublishSingleFile=false -p:RestoreLockedMode=true
     if ($LASTEXITCODE -ne 0) { throw "Publish failed: $project" }
 }
 $ns = 'http://wixtoolset.org/schemas/v4/wxs'

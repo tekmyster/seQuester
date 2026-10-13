@@ -9,15 +9,15 @@ const event=JSON.parse(fs.readFileSync(file,'utf8')),browser=await chromium.laun
 const page=await browser.newPage({viewport:{width:1440,height:1000}}),checks=[],errors=[];
 const check=(ok,name)=>{assert.ok(ok,name);checks.push(name);};page.on('pageerror',e=>errors.push(e.message));
 try{
- await page.setContent(fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/index.html',import.meta.url),'utf8'));
- await page.addStyleTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/console.css',import.meta.url),'utf8')});
+ await page.setContent(fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/index.html',import.meta.url),'utf8'));
+ await page.addStyleTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/console.css',import.meta.url),'utf8')});
  await page.evaluate(event=>{
   window.fixtureEvent=event;window.cell=(row,value)=>{const td=document.createElement('td');td.textContent=value??'Unknown';row.append(td);return td;};window.time=x=>x;
   window.attributionDetails=()=>document.createElement('details');window.guarded=async(_button,work)=>work();window.account={roles:[]};
   window.api=async()=>({items:[{sequence:1,sequenceText:'1',endpointId:'fixture',machineName:'isolated-windows-test',displayOperation:'Access Denied',notificationType:'alert',event:fixtureEvent}],nextCursor:null,total:1,snapshot:1});
  },event);
- await page.addScriptTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/presentation.js',import.meta.url),'utf8')});
- await page.addScriptTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/event-history.js',import.meta.url),'utf8')});
+ await page.addScriptTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/presentation.js',import.meta.url),'utf8')});
+ await page.addScriptTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/event-history.js',import.meta.url),'utf8')});
  await page.evaluate(()=>{document.getElementById('login').hidden=true;document.getElementById('workspace').hidden=false;document.getElementById('alerts').hidden=false;return EventHistory.load(true);});
  const row=page.locator('#alert-rows tr').first(),cells=await row.locator('td').allTextContents();
  check(cells[4]===event.user,'user column retains actual effective SID');check(cells[5]===event.process,'process column matches acquisition fixture');check(cells[6]===String(event.processId),'PID column matches native record');

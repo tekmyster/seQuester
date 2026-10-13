@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType><AssemblyName>WindowsImageDiagnostic</AssemblyName><TargetFramework>net10.0-windows</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
-  <ItemGroup><ProjectReference Include="../../src/RansomFree.Client/RansomFree.Client.csproj" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../../src/seQuester.Client/seQuester.Client.csproj" /></ItemGroup>
   <ItemGroup><Compile Include="../WindowsActorFixture/SourceIdentityTruth.cs" Link="SourceIdentityTruth.cs" /><Compile Include="../WindowsActorFixture/OwnedChildDiagnostics.cs" Link="OwnedChildDiagnostics.cs" /></ItemGroup>
 </Project>

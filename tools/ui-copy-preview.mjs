@@ -3,7 +3,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../src/RansomFree.Server/wwwroot');
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../src/seQuester.Server/wwwroot');
 const now=new Date().toISOString();
 const ready='Linux Audit: collector and relay verified; user/process attribution enabled (per-event completeness varies)';
 const legacy='Canary monitoring configured | File activity: inotify; actor evidence supplied separately by Linux Audit when enabled | '+ready;

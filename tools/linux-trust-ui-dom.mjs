@@ -11,10 +11,10 @@ const browser=await chromium.launch({headless:true,args:['--disable-gpu'],execut
 const page=await browser.newPage({viewport:{width:1440,height:1100}}),checks=[],errors=[];
 const check=(ok,label)=>{assert.ok(ok,label);checks.push(label);};page.on('pageerror',error=>errors.push(error.message));
 try{
- const html=fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/index.html',import.meta.url),'utf8').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
+ const html=fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/index.html',import.meta.url),'utf8').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
  await page.route('https://fixture.invalid/**',route=>route.fulfill({status:200,contentType:route.request().url()==='https://fixture.invalid/'?'text/html':'text/css',body:route.request().url()==='https://fixture.invalid/'?html:''}));
  await page.goto('https://fixture.invalid/');
- await page.addStyleTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/console.css',import.meta.url),'utf8')});
+ await page.addStyleTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/console.css',import.meta.url),'utf8')});
  await page.evaluate(event=>{
   document.getElementById('login').hidden=true;document.getElementById('workspace').hidden=false;
   window.account={roles:['Administrator'],authentication:'SSO'};window.$=id=>document.getElementById(id);window.requests=[];window.submissions=[];window.blocked=false;
@@ -37,7 +37,7 @@ try{
    throw new Error('Unexpected fixture API: '+url);
   };
  },event);
- await page.addScriptTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/trust-policy.js',import.meta.url),'utf8')});
+ await page.addScriptTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/trust-policy.js',import.meta.url),'utf8')});
  await page.getByRole('button',{name:'Trust rules',exact:true}).click();await page.locator('#trust-status').filter({hasText:'Policy 0'}).waitFor();
  check(await page.getByText('Linux hash-rule readiness',{exact:true}).isVisible(),'source/parser readiness appears alongside receipts');
  await page.getByLabel('Policy mode',{exact:true}).selectOption('enforce');await page.getByRole('button',{name:'Create whitelist',exact:true}).click();

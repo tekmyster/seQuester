@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><AssemblyName>RansomFree.AuditRelay</AssemblyName><RootNamespace>RansomFree.AuditRelay</RootNamespace>
+    <OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <Version>0.9.7</Version><PublishAot>true</PublishAot><InvariantGlobalization>true</InvariantGlobalization>
+    <IsAotCompatible>true</IsAotCompatible><TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IlcGenerateStackTraceData>true</IlcGenerateStackTraceData>
+  </PropertyGroup>
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Threading.ThreadPool.UnfairSemaphoreSpinLimit" Value="0" />
+    <Compile Include="../seQuester.LinuxAgent/AuditReplayJournal.cs" Link="AuditReplayJournal.cs" />
+    <Compile Include="../seQuester.LinuxAgent/AuditLossCounter.cs" Link="AuditLossCounter.cs" />
+    <Compile Include="../seQuester.LinuxAgent/Native.cs" Link="Native.cs" />
+    <SupportedPlatform Include="linux" />
+  </ItemGroup>
+</Project>

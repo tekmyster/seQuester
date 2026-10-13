@@ -18,7 +18,7 @@ try {
   window.services=[{id:'a',name:'Alpha',revision:1},{id:'b',name:'Beta',revision:1}];window.pending={};
   window.api=async(path,body)=>{if(body)return new Promise(resolve=>window.pending.save=resolve);if(path.endsWith('/hits'))return new Promise(resolve=>window.pending[path]=resolve);return services;};
  });
- await page.addScriptTag({content:fs.readFileSync(new URL('../../src/RansomFree.Server/wwwroot/decoy-services.js',import.meta.url),'utf8')});
+ await page.addScriptTag({content:fs.readFileSync(new URL('../../src/seQuester.Server/wwwroot/decoy-services.js',import.meta.url),'utf8')});
  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('view-changed',{detail:'callbacks'})));
  await page.getByRole('button',{name:'Alpha · Disabled'}).click();
  await page.getByRole('button',{name:'Beta · Disabled'}).click();

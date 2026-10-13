@@ -12,8 +12,8 @@ const page=await browser.newPage({viewport:{width:1440,height:1050}}),checks=[],
 const check=(ok,label)=>{assert.ok(ok,label);checks.push(label);console.log('PASS '+label);};
 page.on('pageerror',error=>errors.push(error.message));
 try{
- await page.setContent(fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/index.html',import.meta.url),'utf8'));
- await page.addStyleTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/console.css',import.meta.url),'utf8')});
+ await page.setContent(fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/index.html',import.meta.url),'utf8'));
+ await page.addStyleTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/console.css',import.meta.url),'utf8')});
  await page.evaluate(events=>{
   window.rows=events;window.account={roles:['Administrator']};window.requests=[];
   window.cell=(row,value)=>{const td=document.createElement('td');td.textContent=value??'Unknown';row.append(td);return td;};window.time=value=>value;
@@ -22,7 +22,7 @@ try{
   window.api=async target=>{requests.push(target);if(target.startsWith('/api/v1/console/actor-evidence/'))return {state:'received',size:123,receivedUtc:'2026-10-03T03:00:00Z',receiptId:'fixture-receipt'};
    return {items:rows.map((event,i)=>({sequence:i+1,sequenceText:String(i+1),endpointId:event.forensics.sensorId,machineName:'Linux native replay',recordKind:'endpoint',displayOperation:'Forensic Evidence',responseCandidate:false,event})),total:rows.length,nextCursor:null};};
  },seed.events);
- for(const file of ['presentation.js','event-history.js'])await page.addScriptTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/'+file,import.meta.url),'utf8')});
+ for(const file of ['presentation.js','event-history.js'])await page.addScriptTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/'+file,import.meta.url),'utf8')});
  await page.evaluate(()=>{document.getElementById('login').hidden=true;document.getElementById('workspace').hidden=false;document.getElementById('alerts').hidden=false;return EventHistory.load(true);});
  check(await page.locator('.linux-task-evidence').count()===4&&await page.locator('.linux-acquisition-evidence').count()===4,'all four native replay rows expose task and acquisition panels');
  for(let i=0;i<seed.events.length;i++){

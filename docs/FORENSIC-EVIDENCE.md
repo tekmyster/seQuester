@@ -87,10 +87,10 @@ The existing production collectors cannot guarantee actor handles for **every** 
 
 ## Implementation map
 
-- `RansomFree.Contracts/ForensicEvidence.cs`, `EventAttribution.cs`, `Contracts.cs`, `Policies.cs`: schema and policy.
-- `RansomFree.Client/Forensics`: native identity/token capture, hashing/signature cache, evidence store and bounded worker.
-- Windows `Audit.cs`, `Monitor.cs`, `RansomFree.Agent/Program.cs`: early image capture, raw event context and delivery.
-- `RansomFree.LinuxAgent/AuditParser.cs`, `AuditInbox.cs`, `LinuxWorker.cs`: group IDs, PATH identity, rename/syscall evidence and delivery.
+- `seQuester.Contracts/ForensicEvidence.cs`, `EventAttribution.cs`, `Contracts.cs`, `Policies.cs`: schema and policy.
+- `seQuester.Client/Forensics`: native identity/token capture, hashing/signature cache, evidence store and bounded worker.
+- Windows `Audit.cs`, `Monitor.cs`, `seQuester.Agent/Program.cs`: early image capture, raw event context and delivery.
+- `seQuester.LinuxAgent/AuditParser.cs`, `AuditInbox.cs`, `LinuxWorker.cs`: group IDs, PATH identity, rename/syscall evidence and delivery.
 - Client spool/management and server ingest/history/trust relay: capability acknowledgement, immutable linkage and SIEM.
 - Console Policies/Event History: evidence settings, actor details and complete structured JSON.
 

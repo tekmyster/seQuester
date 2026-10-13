@@ -11,8 +11,8 @@ foreach($name in @('Capture.c','Capture.h','Wire.h','Device.c','Device.h','Bridg
  $inputs+=@{Name=$name;Sha256=(Get-FileHash (Join-Path $source $name)).Hash}
 }
 $repository=Split-Path (Split-Path $PSScriptRoot)
-Copy-Item -LiteralPath (Join-Path $repository 'src\RansomFree.WindowsKernel\Protocol.h') -Destination (Join-Path $source 'Protocol.h')
-$tokenPath=Join-Path $repository 'src\RansomFree.WindowsKernel\Driver.c'
+Copy-Item -LiteralPath (Join-Path $repository 'src\seQuester.WindowsKernel\Protocol.h') -Destination (Join-Path $source 'Protocol.h')
+$tokenPath=Join-Path $repository 'src\seQuester.WindowsKernel\Driver.c'
 Copy-Item -LiteralPath $tokenPath -Destination (Join-Path $source 'WindowsKernelDriver.c')
 $driver=[IO.File]::ReadAllText((Join-Path $source 'WindowsKernelDriver.c'))
 $start=$driver.IndexOf('static VOID CaptureToken(PACCESS_TOKEN token,SQ_TOKEN* output)');$end=$driver.IndexOf('static VOID CaptureActor(',$start)

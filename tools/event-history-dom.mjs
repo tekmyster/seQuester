@@ -6,15 +6,15 @@ const {chromium}=require('C:/Users/dmessana/.cache/codex-runtimes/codex-primary-
 const browser=await chromium.launch({headless:true,args:["--disable-gpu","--disable-features=CalculateNativeWinOcclusion"],executablePath:'C:/Users/dmessana/AppData/Local/ms-playwright/chromium-1193/chrome-win/chrome.exe'});
 const page=await browser.newPage();let count=0;const check=(value,label)=>{assert.ok(value,label);console.log('PASS: '+label);count++;};
 try{
- const html=fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/index.html',import.meta.url),'utf8');await page.setContent(html);
+ const html=fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/index.html',import.meta.url),'utf8');await page.setContent(html);
  await page.evaluate(()=>{
   window.requests=[];window.cell=(row,value)=>{const td=document.createElement('td');td.textContent=value??'Unknown';row.append(td);return td;};window.time=value=>value;
   window.helpDetails=(title,text)=>{const details=document.createElement('details'),summary=document.createElement('summary'),body=document.createElement('p');summary.textContent=title;body.textContent=text;details.append(summary,body);return details;};
   window.attributionDetails=()=>{const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='More technical details';details.append(summary);return details;};
   window.guarded=async(_button,work)=>work();window.api=async path=>{requests.push(path);const url=new URL(path,'https://fixture.invalid'),cursor=url.searchParams.get('cursor');return {items:[{sequence:cursor?49:50,sequenceText:cursor?'49':'50',endpointId:'endpoint-id',machineName:'host-one',recordKind:'endpoint',displayOperation:'Copied/Read',responseCandidate:false,event:{eventId:cursor?'b':'a',observedUtc:cursor?'2026-01-01T00:00:49Z':'2026-01-01T00:00:50Z',operation:'Audit read (Success; access intent, not read/copy proof)',path:'/bait/file.txt',user:'alex',process:'reader.exe',processId:42,source:'Linux Audit'}}],nextCursor:cursor?null:'next-token',snapshot:50,total:75};};
  });
- await page.addScriptTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/presentation.js',import.meta.url),'utf8')});
- await page.addScriptTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/event-history.js',import.meta.url),'utf8')});
+ await page.addScriptTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/presentation.js',import.meta.url),'utf8')});
+ await page.addScriptTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/event-history.js',import.meta.url),'utf8')});
  await page.evaluate(()=>{document.getElementById('login').hidden=true;document.getElementById('workspace').hidden=false;document.getElementById('alerts').hidden=false;document.getElementById('history-filter-panel').open=true;});
  const headers=await page.locator('#alerts thead tr:first-child th').allTextContents();check(headers.slice(0,8).join('|')==='Time|Host|Action|File|User|Process|PID|Details','primary columns are separate and in the requested order');
  await page.evaluate(()=>EventHistory.load(true));let request=new URL((await page.evaluate(()=>requests.at(-1))),'https://fixture.invalid');check(request.searchParams.get('sort')==='observed'&&request.searchParams.get('direction')==='desc'&&request.searchParams.get('limit')==='50','default request is server-backed, 50 rows, newest first');

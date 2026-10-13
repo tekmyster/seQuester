@@ -168,18 +168,18 @@ These results
 qualify an entry-time token reference followed by later metadata queries, not
 an immutable historical snapshot of a mutable token.
 
-1. `src/RansomFree.WindowsKernel/Driver.c`: reference the accessing thread's
+1. `src/seQuester.WindowsKernel/Driver.c`: reference the accessing thread's
    impersonation token at callback entry, including APC-level entry; retain
    process objects for separately labeled later image/primary-token queries.
    Use a bounded PASSIVE worker before publishing enriched records. Reuse the
    existing allocation limit of 2048. Drain callbacks and pending work before
    releasing the worker during unload and failed startup.
-2. `src/RansomFree.WindowsKernel/Protocol.h`: add a queue-head extension with
+2. `src/seQuester.WindowsKernel/Protocol.h`: add a queue-head extension with
    reference/query timestamps, collection status and explicit metadata timing.
    Preserve version 4 operation bytes and the existing command 40 extension.
    Commands 41 through 44 are already allocated; use a distinct command.
-3. `src/RansomFree.Client/WindowsKernelSource.cs` and
-   `src/RansomFree.Contracts/WindowsKernelEvidence.cs`: validate event linkage
+3. `src/seQuester.Client/WindowsKernelSource.cs` and
+   `src/seQuester.Contracts/WindowsKernelEvidence.cs`: validate event linkage
    and timing provenance before accepting deferred evidence. Preserve the
    callback IRQL. Keep process owner, accessing thread owner, effective thread
    identity and CREATE authorization separate. Carry the additive fields

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+  <PropertyGroup><AssemblyName>RansomFree.MacAgent</AssemblyName><RootNamespace>RansomFree.MacAgent</RootNamespace><TargetFramework>net10.0</TargetFramework><RuntimeIdentifiers>osx-x64;osx-arm64</RuntimeIdentifiers><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><OutputType>Exe</OutputType><Version>0.9.0</Version><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile><DefineConstants>$(DefineConstants);MACOS</DefineConstants></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../seQuester.Client/seQuester.Client.csproj" /><PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="../seQuester.LinuxAgent/Program.cs" Link="Shared/Program.cs" />
+    <Compile Include="../seQuester.LinuxAgent/ConfigurationCommands.cs" Link="Shared/ConfigurationCommands.cs" />
+    <Compile Include="../seQuester.LinuxAgent/State.cs" Link="Shared/State.cs" />
+    <Compile Include="../seQuester.LinuxAgent/Deployments.cs" Link="Shared/Deployments.cs" />
+    <Compile Include="../seQuester.LinuxAgent/LinuxWorker.cs" Link="Shared/EndpointWorker.cs" />
+    <Compile Include="../seQuester.LinuxAgent/UnixSyslogOutbox.cs" Link="Shared/UnixSyslogOutbox.cs" />
+    <Compile Include="../../CanaryTemplates.cs" Link="CanaryTemplates.cs" />
+    <Compile Include="../../CallbackDocuments.cs" Link="CallbackDocuments.cs" />
+    <Compile Include="../../ImportedCanaries.cs" Link="ImportedCanaries.cs" />
+    <Compile Include="../../Syslog.cs" Link="Syslog.cs" />
+    <Compile Include="../../PasswordHash.cs" Link="PasswordHash.cs" />
+    <Compile Include="../../PasswordSettings.cs" Link="PasswordSettings.cs" />
+    <EmbeddedResource Include="../../Assets/canary.docx" LogicalName="RansomFree.Templates.canary.docx" />
+    <EmbeddedResource Include="../../Assets/canary.xlsx" LogicalName="RansomFree.Templates.canary.xlsx" />
+    <EmbeddedResource Include="../../Assets/canary.pdf" LogicalName="RansomFree.Templates.canary.pdf" />
+  </ItemGroup>
+</Project>

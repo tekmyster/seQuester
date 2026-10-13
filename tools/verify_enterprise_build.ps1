@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 $projectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $dotnetPath = (Resolve-Path -LiteralPath $Dotnet).Path
 if (-not (Test-Path -LiteralPath $dotnetPath -PathType Leaf)) { throw 'Dotnet must identify an executable file.' }
-foreach ($project in @('src/RansomFree.Server/RansomFree.Server.csproj','src/RansomFree.Agent/RansomFree.Agent.csproj','tests/RansomFree.Server.Tests/RansomFree.Server.Tests.csproj')) {
+foreach ($project in @('src/seQuester.Server/seQuester.Server.csproj','src/seQuester.Agent/seQuester.Agent.csproj','tests/seQuester.Server.Tests/seQuester.Server.Tests.csproj')) {
     if (-not (Test-Path -LiteralPath (Join-Path $projectRoot $project) -PathType Leaf)) { throw "Required project missing: $project" }
 }
 if ($CheckOnly) { Write-Output 'Input checks passed. No build or runtime checks were performed.'; return }
@@ -45,10 +45,10 @@ $previousDirectory = Get-Location
 try {
     Set-Location -LiteralPath $projectRoot
     Invoke-VerifiedStep 'sdk' @('--info')
-    Invoke-VerifiedStep 'server-windows' @('publish','src/RansomFree.Server','-c','Release','-r','win-x64','--self-contained','true','-o',(Join-Path $resolvedRun 'server-windows'))
-    Invoke-VerifiedStep 'server-linux' @('publish','src/RansomFree.Server','-c','Release','-r','linux-x64','--self-contained','true','-o',(Join-Path $resolvedRun 'server-linux'))
-    Invoke-VerifiedStep 'agent-windows' @('publish','src/RansomFree.Agent','-c','Release','-r','win-x64','--self-contained','true','-o',(Join-Path $resolvedRun 'agent-windows'))
-    Invoke-VerifiedStep 'integration' @('run','--project','tests/RansomFree.Server.Tests','-c','Release','--',$dotnetPath,(Join-Path $resolvedRun 'server-windows/RansomFree.Server.dll'),(Join-Path $resolvedRun 'agent-windows/RansomFree.Agent.dll'))
+    Invoke-VerifiedStep 'server-windows' @('publish','src/seQuester.Server','-c','Release','-r','win-x64','--self-contained','true','-o',(Join-Path $resolvedRun 'server-windows'))
+    Invoke-VerifiedStep 'server-linux' @('publish','src/seQuester.Server','-c','Release','-r','linux-x64','--self-contained','true','-o',(Join-Path $resolvedRun 'server-linux'))
+    Invoke-VerifiedStep 'agent-windows' @('publish','src/seQuester.Agent','-c','Release','-r','win-x64','--self-contained','true','-o',(Join-Path $resolvedRun 'agent-windows'))
+    Invoke-VerifiedStep 'integration' @('run','--project','tests/seQuester.Server.Tests','-c','Release','--',$dotnetPath,(Join-Path $resolvedRun 'server-windows/RansomFree.Server.dll'),(Join-Path $resolvedRun 'agent-windows/RansomFree.Agent.dll'))
     $manifest.Artifacts = @(Get-ChildItem -LiteralPath $resolvedRun -Recurse -File | Where-Object { $_.Extension -in '.exe','.dll','.json','.ttf' } | ForEach-Object {
         [ordered]@{Path=[IO.Path]::GetRelativePath($resolvedRun,$_.FullName);Bytes=$_.Length;Sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash}
     })

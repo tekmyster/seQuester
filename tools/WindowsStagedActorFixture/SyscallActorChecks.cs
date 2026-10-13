@@ -91,7 +91,7 @@ internal static class SyscallActorChecks
     {
         var socket=new TcpListener(IPAddress.Loopback,0);socket.Start();var port=((IPEndPoint)socket.LocalEndpoint).Port;socket.Stop();var secret=Store.Secret();
         var start=new ProcessStartInfo(@"C:\Program Files\dotnet\dotnet.exe"){UseShellExecute=false,CreateNoWindow=true,WindowStyle=ProcessWindowStyle.Hidden,RedirectStandardOutput=true,RedirectStandardError=true};
-        start.ArgumentList.Add(Path.GetFullPath("src/RansomFree.Server/bin/Debug/net10.0/RansomFree.Server.dll"));
+        start.ArgumentList.Add(Path.GetFullPath("src/seQuester.Server/bin/Debug/net10.0/RansomFree.Server.dll"));
         foreach(var name in start.Environment.Keys.Where(k=>k.StartsWith("RF_")||k.StartsWith("ASPNETCORE_")||k.StartsWith("Forensics__")).ToArray())start.Environment.Remove(name);
         start.Environment["RF_DATA_DIR"]=serverDirectory;start.Environment["RF_ADMIN_KEY"]=secret;start.Environment["RF_ALLOW_LOOPBACK_HTTP"]="true";start.Environment["ASPNETCORE_ENVIRONMENT"]="Development";start.Environment["DOTNET_ENVIRONMENT"]="Development";start.Environment["ASPNETCORE_URLS"]=$"http://127.0.0.1:{port}";start.Environment["Database__Provider"]="Sqlite";start.Environment["Logging__LogLevel__Default"]="Warning";
         using var process=Process.Start(start)!;var stdout=process.StandardOutput.ReadToEndAsync();var stderr=process.StandardError.ReadToEndAsync();

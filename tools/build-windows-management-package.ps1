@@ -11,7 +11,7 @@ $env:NUGET_PACKAGES=Join-Path $WorkRoot 'nuget-packages'
 $env:NUGET_HTTP_CACHE_PATH=Join-Path $WorkRoot 'nuget-http-cache'
 $env:DOTNET_CLI_TELEMETRY_OPTOUT='1'; $env:DOTNET_GENERATE_ASPNET_CERTIFICATE='false'
 [void][IO.Directory]::CreateDirectory($env:TEMP)
-$project=Join-Path $repo 'src\RansomFree.Server\RansomFree.Server.csproj'
+$project=Join-Path $repo 'src\seQuester.Server\seQuester.Server.csproj'
 [xml]$projectXml=Get-Content -LiteralPath $project -Raw
 $versionNodes=@($projectXml.SelectNodes('/Project/PropertyGroup/Version'))
 $fileVersionNodes=@($projectXml.SelectNodes('/Project/PropertyGroup/FileVersion'))
@@ -34,7 +34,7 @@ $publishedIdentity=[Diagnostics.FileVersionInfo]::GetVersionInfo($serverExe)
 if($publishedIdentity.FileVersion -cne $fileVersion){throw 'Published server FileVersion disagrees with the project.'}
 if($publishedIdentity.ProductVersion -notmatch ('^'+[Regex]::Escape($informationalVersion)+'\+[0-9a-f]{40}$')){throw 'Published server ProductVersion is not a commit-bound project InformationalVersion.'}
 $docs=Join-Path $payload 'docs'; [void][IO.Directory]::CreateDirectory($docs)
-foreach($name in @('README.md','SQL_SERVER_SETUP.md','SSO_SETUP.md','DIRECTORY_SETUP.md','CALLBACK_SETUP.md')){Copy-Item -LiteralPath (Join-Path $repo "src\RansomFree.Server\$name") -Destination $docs}
+foreach($name in @('README.md','SQL_SERVER_SETUP.md','SSO_SETUP.md','DIRECTORY_SETUP.md','CALLBACK_SETUP.md')){Copy-Item -LiteralPath (Join-Path $repo "src\seQuester.Server\$name") -Destination $docs}
 Copy-Item -LiteralPath (Join-Path $repo 'packaging\linux-client\AUDIT.md') -Destination (Join-Path $docs 'LINUX_ATTRIBUTION.md')
 $utf8=[Text.UTF8Encoding]::new($false)
 [IO.File]::WriteAllText((Join-Path $payload 'RELEASE_ID'),$release+"`n",$utf8)

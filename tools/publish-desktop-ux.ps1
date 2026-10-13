@@ -10,7 +10,7 @@ if(Test-Path -LiteralPath $root){throw 'Immutable destination exists.'}
 $results=@()
 foreach($directory in @('win-x64','win-x64-readonly','linux-x64','linux-arm64','osx-x64','osx-arm64')){
     $runtime=if($directory -eq 'win-x64-readonly'){'win-x64'}else{$directory}
-    $project=switch($directory){'win-x64'{'RansomFree.csproj'} 'win-x64-readonly'{'src\RansomFree.Tray\RansomFree.Tray.csproj'} default{'src\RansomFree.UnixDesktop\RansomFree.UnixDesktop.csproj'}}
+    $project=switch($directory){'win-x64'{'seQuester.csproj'} 'win-x64-readonly'{'src\seQuester.Tray\seQuester.Tray.csproj'} default{'src\seQuester.UnixDesktop\seQuester.UnixDesktop.csproj'}}
     $role=switch($directory){'win-x64'{'Windows portable monitor / administrative managed tray'} 'win-x64-readonly'{'Windows read-only managed tray / explicit lab observer'} default{'Read-only Unix desktop; endpoint service not included'}}
     $version=([xml](Get-Content (Join-Path $repo $project) -Raw)).Project.PropertyGroup.Version
     $output=Join-Path $root $directory
@@ -21,6 +21,6 @@ foreach($directory in @('win-x64','win-x64-readonly','linux-x64','linux-arm64','
     $results+=[ordered]@{Directory=$directory;Runtime=$runtime;Version=$version;Role=$role;NativeAcceptance='PENDING';Files=$files}
 }
 Copy-Item -LiteralPath (Join-Path $repo 'UI_COPY_STANDARD.md') -Destination $root
-$report=[ordered]@{Root=$root;Product='Quiver seQuester';Signed=$false;Deployed=$false;WindowsGuiVersion=([xml](Get-Content (Join-Path $repo 'RansomFree.csproj') -Raw)).Project.PropertyGroup.Version;UnixDesktopVersion=([xml](Get-Content (Join-Path $repo 'src\RansomFree.UnixDesktop\RansomFree.UnixDesktop.csproj') -Raw)).Project.PropertyGroup.Version;Installer=$false;Builds=$results}
+$report=[ordered]@{Root=$root;Product='Quiver seQuester';Signed=$false;Deployed=$false;WindowsGuiVersion=([xml](Get-Content (Join-Path $repo 'seQuester.csproj') -Raw)).Project.PropertyGroup.Version;UnixDesktopVersion=([xml](Get-Content (Join-Path $repo 'src\seQuester.UnixDesktop\seQuester.UnixDesktop.csproj') -Raw)).Project.PropertyGroup.Version;Installer=$false;Builds=$results}
 [IO.File]::WriteAllText((Join-Path $root 'publish-manifest.json'),($report|ConvertTo-Json -Depth 8),[Text.UTF8Encoding]::new($false))
 [pscustomobject]@{Root=$root;Builds=$results.Count;Signed=$false;Deployed=$false;NativeAcceptance='PENDING';ManifestSha256=(Get-FileHash -LiteralPath (Join-Path $root 'publish-manifest.json') -Algorithm SHA256).Hash}|ConvertTo-Json

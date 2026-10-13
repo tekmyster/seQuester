@@ -8,7 +8,7 @@ foreach($name in @('DTraceControl.cpp','DTraceAdapter.h','Device.h','Wire.h','Bu
  Copy-Item -LiteralPath (Join-Path $PSScriptRoot $name) -Destination (Join-Path $source $name)
  $inputs+=@{Name=$name;Sha256=(Get-FileHash (Join-Path $source $name)).Hash}
 }
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot '..\..\src\RansomFree.WindowsKernel\Protocol.h') -Destination (Join-Path $source 'Protocol.h')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot '..\..\src\seQuester.WindowsKernel\Protocol.h') -Destination (Join-Path $source 'Protocol.h')
 $inputs+=@{Name='Protocol.h';Sha256=(Get-FileHash (Join-Path $source 'Protocol.h')).Hash}
 $vc='C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.37.32822'
 $sdk='D:\Codex\RansomFree\kernel-attribution-20260924\toolchain\sdk\c'

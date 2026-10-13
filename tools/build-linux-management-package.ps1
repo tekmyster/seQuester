@@ -11,6 +11,7 @@ Set-StrictMode -Version Latest
 $repo=Split-Path $PSScriptRoot -Parent
 $roleId=$Role.ToLowerInvariant()
 $assembly=if ($Role -eq 'Management') { 'RansomFree.Server' } else { 'RansomFree.Receiver' }
+$project=if ($Role -eq 'Management') { 'seQuester.Server' } else { 'seQuester.Receiver' }
 $product=if ($Role -eq 'Management') { 'Ransom Free Management Server' } else { 'Ransom Free Callback Receiver' }
 $machine=if ($Runtime -eq 'linux-arm64') { 183 } else { 62 }
 $env:TEMP=Join-Path $WorkRoot 'temp'; $env:TMP=$env:TEMP
@@ -23,18 +24,18 @@ $output=Join-Path $WorkRoot ("packages\linux-$roleId\"+$release)
 if (Test-Path -LiteralPath $output) { throw 'Immutable release destination already exists.' }
 $payload=Join-Path $output 'payload'
 [void][IO.Directory]::CreateDirectory($payload)
-& $Dotnet publish (Join-Path $repo "src\$assembly\$assembly.csproj") --configuration Release --runtime $Runtime --self-contained true --artifacts-path (Join-Path $WorkRoot 'artifacts') --output (Join-Path $payload 'app') -p:RestoreLockedMode=true -p:Version=0.6.4 -p:DebugType=None -p:DebugSymbols=false
+& $Dotnet publish (Join-Path $repo "src\$project\$project.csproj") --configuration Release --runtime $Runtime --self-contained true --artifacts-path (Join-Path $WorkRoot 'artifacts') --output (Join-Path $payload 'app') -p:RestoreLockedMode=true -p:Version=0.6.4 -p:DebugType=None -p:DebugSymbols=false
 if ($LASTEXITCODE -ne 0) { throw "Linux $Role publish failed; partial build retained." }
 Copy-Item -Path (Join-Path $repo "packaging\linux-$roleId\*") -Destination $payload
 $docs=Join-Path $payload 'docs'; [void][IO.Directory]::CreateDirectory($docs)
 $docNames=if ($Role -eq 'Management') { @('SQL_SERVER_SETUP.md','SSO_SETUP.md','DIRECTORY_SETUP.md','CALLBACK_SETUP.md') } else { @('SQL_SERVER_SETUP.md','CALLBACK_SETUP.md') }
-foreach ($name in $docNames) { Copy-Item -LiteralPath (Join-Path $repo "src\RansomFree.Server\$name") -Destination $docs }
-Copy-Item -LiteralPath (Join-Path $repo 'src\RansomFree.Server\Database\RuntimeRoles.sql') -Destination $docs
+foreach ($name in $docNames) { Copy-Item -LiteralPath (Join-Path $repo "src\seQuester.Server\$name") -Destination $docs }
+Copy-Item -LiteralPath (Join-Path $repo 'src\seQuester.Server\Database\RuntimeRoles.sql') -Destination $docs
 if ($Role -eq 'Management') {
     Copy-Item -LiteralPath (Join-Path $repo 'packaging\linux-client\AUDIT.md') -Destination (Join-Path $docs 'LINUX_ATTRIBUTION.md')
     Copy-Item -LiteralPath (Join-Path $repo 'integrations\notifications\README.md') -Destination (Join-Path $docs 'NOTIFICATIONS.md')
 } else {
-    Copy-Item -LiteralPath (Join-Path $repo 'src\RansomFree.Receiver\SERVICE_TOKENS.md') -Destination $docs
+    Copy-Item -LiteralPath (Join-Path $repo 'src\seQuester.Receiver\SERVICE_TOKENS.md') -Destination $docs
 }
 $utf8=New-Object Text.UTF8Encoding($false)
 [IO.File]::WriteAllText((Join-Path $payload 'RELEASE_ID'),$release+"`n",$utf8)
@@ -67,12 +68,12 @@ if ($Role -eq 'Management') { $required+=@('wwwroot\index.html','wwwroot\notific
 foreach ($name in $required) {
     if (!(Test-Path -LiteralPath (Join-Path $payload "app\$name"))) { throw "Required $Role payload missing: $name" }
 }
-$sourceFiles=@(Get-ChildItem -LiteralPath (Join-Path $repo "src\$assembly"),(Join-Path $repo "packaging\linux-$roleId") -Recurse -File | Where-Object FullName -notmatch '\\(bin|obj)\\')
+$sourceFiles=@(Get-ChildItem -LiteralPath (Join-Path $repo "src\$project"),(Join-Path $repo "packaging\linux-$roleId") -Recurse -File | Where-Object FullName -notmatch '\\(bin|obj)\\')
 if ($Role -eq 'Management') {
-    $sourceFiles+=@(Get-ChildItem -LiteralPath (Join-Path $repo 'src\RansomFree.Contracts'),(Join-Path $repo 'Assets') -Recurse -File | Where-Object FullName -notmatch '\\(bin|obj)\\')
+    $sourceFiles+=@(Get-ChildItem -LiteralPath (Join-Path $repo 'src\seQuester.Contracts'),(Join-Path $repo 'Assets') -Recurse -File | Where-Object FullName -notmatch '\\(bin|obj)\\')
     $sourceFiles+=@(Get-Item -LiteralPath (Join-Path $repo 'CanaryTemplates.cs'),(Join-Path $repo 'CallbackDocuments.cs'),(Join-Path $repo 'ImportedCanaries.cs'),(Join-Path $repo 'Syslog.cs'))
 } else {
-    foreach ($name in @('CallbackStorage.cs','DatabaseSettings.cs','SqlServerSchema.cs')) { $sourceFiles+=Get-Item -LiteralPath (Join-Path $repo "src\RansomFree.Server\$name") }
+    foreach ($name in @('CallbackStorage.cs','DatabaseSettings.cs','SqlServerSchema.cs')) { $sourceFiles+=Get-Item -LiteralPath (Join-Path $repo "src\seQuester.Server\$name") }
 }
 $sourceFiles+=@(Get-Item -LiteralPath $PSCommandPath,(Join-Path $PSScriptRoot 'verify-linux-management-package.ps1'))
 $sources=@($sourceFiles | Sort-Object FullName -Unique | ForEach-Object { [ordered]@{Path=$_.FullName.Substring($repo.Length+1).Replace('\','/');Sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash} })

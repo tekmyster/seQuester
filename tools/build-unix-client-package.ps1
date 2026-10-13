@@ -12,7 +12,8 @@ Set-StrictMode -Version Latest
 $repo=Split-Path $PSScriptRoot -Parent
 $linux=$Runtime.StartsWith('linux-')
 $platform=if($linux){'linux-client'}else{'macos-client'}
-$project=if($linux){'RansomFree.LinuxAgent'}else{'RansomFree.MacAgent'}
+$project=if($linux){'seQuester.LinuxAgent'}else{'seQuester.MacAgent'}
+$assembly=if($linux){'RansomFree.LinuxAgent'}else{'RansomFree.MacAgent'}
 [xml]$projectXml=[IO.File]::ReadAllText((Join-Path $repo "src\$project\$project.csproj"))
 $version=[string]$projectXml.Project.PropertyGroup.Version
 if($version -notmatch '^\d+\.\d+\.\d+$'){throw 'Project release version unavailable.'}
@@ -20,10 +21,10 @@ if($linux){
     if(!$AuditRelayDirectory){throw 'Linux packaging requires a separately built Native AOT relay and matching evidence. No JIT fallback.'}
     $relayProof=Get-Content -LiteralPath $AuditRelayEvidence -Raw | ConvertFrom-Json
     if($relayProof.Runtime -ne $Runtime -or $relayProof.ProtocolVersion -ne 1){throw 'Native AOT relay runtime/protocol mismatch; build this architecture before packaging.'}
-    [xml]$relayProjectXml=[IO.File]::ReadAllText((Join-Path $repo 'src\RansomFree.AuditRelay\RansomFree.AuditRelay.csproj'))
+    [xml]$relayProjectXml=[IO.File]::ReadAllText((Join-Path $repo 'src\seQuester.AuditRelay\seQuester.AuditRelay.csproj'))
     if($relayProof.Version -ne [string]$relayProjectXml.Project.PropertyGroup.Version){throw 'Native AOT relay project/evidence version mismatch.'}
-    foreach($item in @(@('Program.cs',$relayProof.ProgramSha256),@('RansomFree.AuditRelay.csproj',$relayProof.ProjectSha256))){
-        if((Get-FileHash -LiteralPath (Join-Path $repo ('src\RansomFree.AuditRelay\'+$item[0])) -Algorithm SHA256).Hash -cne $item[1]){throw 'Relay source differs from native build evidence.'}
+    foreach($item in @(@('Program.cs',$relayProof.ProgramSha256),@('seQuester.AuditRelay.csproj',$relayProof.ProjectSha256))){
+        if((Get-FileHash -LiteralPath (Join-Path $repo ('src\seQuester.AuditRelay\'+$item[0])) -Algorithm SHA256).Hash -cne $item[1]){throw 'Relay source differs from native build evidence.'}
     }
     if((Get-FileHash -LiteralPath (Join-Path $AuditRelayDirectory 'RansomFree.AuditRelay') -Algorithm SHA256).Hash -cne $relayProof.BinarySha256){throw 'Native AOT binary hash mismatch.'}
     foreach($property in $relayProof.EvidenceFiles.PSObject.Properties){
@@ -55,7 +56,7 @@ if($linux){
     if($version -in @('0.9.8','0.9.9','0.9.10')){
         $requiredSummaryCases=if($version -in @('0.9.9','0.9.10')){39}else{24}
         if($healthProof.SummaryCases -ne $requiredSummaryCases){throw 'Current endpoint summary native fixture evidence required.'}
-        foreach($required in @('src/RansomFree.LinuxAgent/EndpointHealthSummary.cs','src/RansomFree.LinuxAgent/LinuxWorker.cs','src/RansomFree.LinuxAgent/Monitors.cs','tools/EndpointHealthSummaryFixture/Program.cs','tools/EndpointHealthSummaryFixture/EndpointHealthSummaryFixture.csproj','packaging/linux-client/install.sh')){
+        foreach($required in @('src/seQuester.LinuxAgent/EndpointHealthSummary.cs','src/seQuester.LinuxAgent/LinuxWorker.cs','src/seQuester.LinuxAgent/Monitors.cs','tools/EndpointHealthSummaryFixture/Program.cs','tools/EndpointHealthSummaryFixture/EndpointHealthSummaryFixture.csproj','packaging/linux-client/install.sh')){
             if(!$healthProof.SourceHashes.PSObject.Properties[$required]){throw 'Summary/installer source evidence missing.'}
         }
     }
@@ -85,7 +86,7 @@ foreach($file in Get-ChildItem -LiteralPath $packaging -Recurse -File){
     Copy-Item -LiteralPath $file.FullName -Destination $target
 }
 $desktop=if($linux){Join-Path $payload 'desktop'}else{Join-Path $payload 'Native\Ransom Free Endpoint.app\Contents\MacOS'}
-& $Dotnet publish (Join-Path $repo 'src\RansomFree.UnixDesktop\RansomFree.UnixDesktop.csproj') -c Release -r $Runtime --self-contained true --artifacts-path (Join-Path $WorkRoot 'artifacts') -o $desktop -p:RestoreLockedMode=true -p:DebugType=None -p:DebugSymbols=false
+& $Dotnet publish (Join-Path $repo 'src\seQuester.UnixDesktop\seQuester.UnixDesktop.csproj') -c Release -r $Runtime --self-contained true --artifacts-path (Join-Path $WorkRoot 'artifacts') -o $desktop -p:RestoreLockedMode=true -p:DebugType=None -p:DebugSymbols=false
 if($LASTEXITCODE -ne 0){throw 'Managed desktop cross-publish failed; partial artifact preserved.'}
 if(!$linux){
     Copy-Item -LiteralPath (Join-Path $payload 'bundle\Info.plist') -Destination (Join-Path $payload 'Native\Ransom Free Endpoint.app\Contents\Info.plist')
@@ -120,7 +121,7 @@ if($linux){
     }
     if($loader -match '/etc/audit/rules.d|ProtectHome=true|auditctl -R|Restart='){throw 'Unsafe rule-loader namespace/retry regression.'}
 }
-$native=if($linux){@($project,'libcoreclr.so','libhostfxr.so','libe_sqlite3.so')}else{@($project,'libcoreclr.dylib','libhostfxr.dylib','libe_sqlite3.dylib')}
+$native=if($linux){@($assembly,'libcoreclr.so','libhostfxr.so','libe_sqlite3.so')}else{@($assembly,'libcoreclr.dylib','libhostfxr.dylib','libe_sqlite3.dylib')}
 $nativePaths=@($native|ForEach-Object{Join-Path $payload "app\$_"})
 $nativePaths+=Join-Path $desktop 'RansomFree.UnixDesktop'
 if($linux){$nativePaths+=Join-Path $payload 'audit-relay\RansomFree.AuditRelay'}
@@ -138,12 +139,12 @@ foreach($path in $nativePaths){
         }
     }finally{$stream.Dispose()}
 }
-$sources=@(Get-ChildItem -LiteralPath (Join-Path $repo "src\$project"),(Join-Path $repo 'src\RansomFree.LinuxAgent'),(Join-Path $repo 'src\RansomFree.UnixDesktop'),(Join-Path $repo 'src\RansomFree.Client'),(Join-Path $repo 'src\RansomFree.Contracts'),(Join-Path $repo "packaging\$platform") -Recurse -File | Where-Object FullName -notmatch '\\(bin|obj|__pycache__)\\' | Sort-Object FullName -Unique | ForEach-Object {[ordered]@{Path=$_.FullName.Substring($repo.Length+1).Replace('\','/');Sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash}})
+$sources=@(Get-ChildItem -LiteralPath (Join-Path $repo "src\$project"),(Join-Path $repo 'src\seQuester.LinuxAgent'),(Join-Path $repo 'src\seQuester.UnixDesktop'),(Join-Path $repo 'src\seQuester.Client'),(Join-Path $repo 'src\seQuester.Contracts'),(Join-Path $repo "packaging\$platform") -Recurse -File | Where-Object FullName -notmatch '\\(bin|obj|__pycache__)\\' | Sort-Object FullName -Unique | ForEach-Object {[ordered]@{Path=$_.FullName.Substring($repo.Length+1).Replace('\','/');Sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash}})
 foreach($name in @('CanaryTemplates.cs','CallbackDocuments.cs','ImportedCanaries.cs','Syslog.cs','PasswordHash.cs','PasswordSettings.cs','Assets/canary.docx','Assets/canary.xlsx','Assets/canary.pdf')){
     $sources+=[ordered]@{Path=$name;Sha256=(Get-FileHash -LiteralPath (Join-Path $repo $name) -Algorithm SHA256).Hash}
 }
 if($linux){
-    foreach($file in Get-ChildItem -LiteralPath (Join-Path $repo 'src\RansomFree.AuditRelay') -File){$sources+=[ordered]@{Path=$file.FullName.Substring($repo.Length+1).Replace('\','/');Sha256=(Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash}}
+    foreach($file in Get-ChildItem -LiteralPath (Join-Path $repo 'src\seQuester.AuditRelay') -File){$sources+=[ordered]@{Path=$file.FullName.Substring($repo.Length+1).Replace('\','/');Sha256=(Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash}}
 }
 [IO.File]::WriteAllText((Join-Path $payload 'source-inventory.json'),(ConvertTo-Json -InputObject $sources -Depth 5)+"`n",$utf8)
 $report="Release: $release`nProduct: endpoint client, NOT management server`nPASS: locked self-contained .NET agent and Avalonia desktop cross-publish; agent native file headers; bash -n syntax (Windows parser); no Python/Swift/Objective-C application payload.`nNOT RUN: native service/install/monitor/tray/permissions, queue/reboot/recovery, callbacks, email, Wazuh, process response or acceptance tests.`nNOT SIGNED. Development-only. macOS Endpoint Security C# adapter is NOT IMPLEMENTED; baseline fsevents only in current package. Managed alert windows replace native notification-center integration.`nNo service, live host, firewall or canary deployed by this build.`n"

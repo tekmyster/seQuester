@@ -4,13 +4,13 @@ if(Test-Path -LiteralPath $OutputDirectory){throw 'Immutable output already exis
 New-Item -ItemType Directory -Path $OutputDirectory|Out-Null
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $frozen=Join-Path $OutputDirectory 'source'
-$files=@(Get-ChildItem (Join-Path $repo 'src\RansomFree.WindowsKernel') -File|Where-Object{$_.Extension-in@('.c','.h','.ps1')}|ForEach-Object{[IO.Path]::GetRelativePath($repo,$_.FullName)})
+$files=@(Get-ChildItem (Join-Path $repo 'src\seQuester.WindowsKernel') -File|Where-Object{$_.Extension-in@('.c','.h','.ps1')}|ForEach-Object{[IO.Path]::GetRelativePath($repo,$_.FullName)})
 $files+=@('tools\WindowsApiObserverPrototype\DeferredTokenSensorTest.cpp','tools\WindowsApiObserverPrototype\CallbackTokenLabProtocol.h','tools\WindowsApiObserverPrototype\Build-DeferredTokenSensor.ps1')
 $sources=@()
 foreach($name in $files){$inputFile=Join-Path $repo $name;$destination=Join-Path $frozen $name;New-Item -ItemType Directory -Path (Split-Path $destination) -Force|Out-Null;Copy-Item -LiteralPath $inputFile -Destination $destination;$hash=(Get-FileHash $inputFile).Hash;if((Get-FileHash $destination).Hash-cne$hash){throw 'Freeze mismatch'};$sources+=@{Name=$name;Sha256=$hash}}
 $pipeline=@{}
 if($FullSensorPipeline){$pipeline=@{ExecutableStagingDiagnostic=$true;RemoteFilesystemDiagnostic=$true;ApcPinDiagnostic=$true;AcquisitionOutcomeDiagnostic=$true;AcquisitionOutcomeAdvertised=$true}}
-& (Join-Path $frozen 'src\RansomFree.WindowsKernel\Build-Prototype.ps1') -OutputDirectory $OutputDirectory -DeferredTokenDiagnostic @pipeline
+& (Join-Path $frozen 'src\seQuester.WindowsKernel\Build-Prototype.ps1') -OutputDirectory $OutputDirectory -DeferredTokenDiagnostic @pipeline
 $vc='C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.37.32822'
 $sdk='D:\Codex\RansomFree\kernel-attribution-20260924\toolchain\sdk\c'
 $previousInclude=$env:INCLUDE;$previousLib=$env:LIB

@@ -384,11 +384,11 @@ A referenced token prevents replacement of the token object; it does not make mu
 
 | Module | Responsibility |
 |---|---|
-| `src/RansomFree.WindowsKernel/Driver.c`, `Protocol.h` | Operation-time identity, separate tokens, requested access, native final status, opened/normalized name provenance, QPC and provider ordering; bounded peek/ACK queue |
-| `src/RansomFree.Client/WindowsKernelSource.cs` | Exact registered paths, decoding, stable IDs, durable raw journal before driver ACK, immutable prepared originals, retries and loss/reload telemetry |
-| `src/RansomFree.Contracts/WindowsKernelEvidence.cs` | Additive versioned fields and consistency validation; explicit unavailable states |
-| `src/RansomFree.Client/Forensics/ActorLease.cs`, `WindowsProcessCapture.cs` | Preserve native security context after process exit; require matching process start before later image capture |
-| `src/RansomFree.Agent/Program.cs`, `Monitor.cs` | Optional continuous source integrated into existing monitoring, trust, forensic collection and spool |
+| `src/seQuester.WindowsKernel/Driver.c`, `Protocol.h` | Operation-time identity, separate tokens, requested access, native final status, opened/normalized name provenance, QPC and provider ordering; bounded peek/ACK queue |
+| `src/seQuester.Client/WindowsKernelSource.cs` | Exact registered paths, decoding, stable IDs, durable raw journal before driver ACK, immutable prepared originals, retries and loss/reload telemetry |
+| `src/seQuester.Contracts/WindowsKernelEvidence.cs` | Additive versioned fields and consistency validation; explicit unavailable states |
+| `src/seQuester.Client/Forensics/ActorLease.cs`, `WindowsProcessCapture.cs` | Preserve native security context after process exit; require matching process start before later image capture |
+| `src/seQuester.Agent/Program.cs`, `Monitor.cs` | Optional continuous source integrated into existing monitoring, trust, forensic collection and spool |
 | `Audit.cs` | Audit coverage checks require success and failure for every configured monitored right |
 | Management client, event spool, server ingest/history/trust and console | Require protocol-4 capability/receipt, retain structured evidence, independently validate whitelist identity, show token details and denied results |
 
@@ -435,7 +435,7 @@ R32 completed the same 21-case native matrix on WIN10, WIN11, Server 2019 and th
 
 ### Narrow implementation plan and changes
 
-- `src/RansomFree.WindowsKernel/ProcessCreationMetadata.h`, `ExecutableStagingDiagnostic.h`, `Driver.c`: copy creation-notification command line and image-open name before callback return. Distinguish reported parent PID from actual creator PID/TID/start. Match the candidate under the existing short lock, copy/lookup outside all locks, then revalidate candidate ID plus callback-owned file object before publishing. No entry pointer survives an unlock. Candidate removal during capture discards the provisional metadata; it cannot attach to a reused slot.
+- `src/seQuester.WindowsKernel/ProcessCreationMetadata.h`, `ExecutableStagingDiagnostic.h`, `Driver.c`: copy creation-notification command line and image-open name before callback return. Distinguish reported parent PID from actual creator PID/TID/start. Match the candidate under the existing short lock, copy/lookup outside all locks, then revalidate candidate ID plus callback-owned file object before publishing. No entry pointer survives an unlock. Candidate removal during capture discards the provisional metadata; it cannot attach to a reused slot.
 - Metadata is per process/candidate, immutable before publication, reference-counted by candidate and queued blob. Process exit, TTL and ACK do not retarget a record. All detach paths release their metadata reference outside locks. A separate 256-object cap bounds metadata pool use to about 1.28 MiB plus allocator overhead; refused allocation yields explicit unavailable evidence. Health operation 28 exposes allocations/frees/refusals/live count.
 - Command line cap: 2,048 UTF-16 code units (4,096 bytes); image name cap: 512 code units (1,024 bytes). Keep original/stored byte lengths, absent/invalid/truncated status and raw UTF-16 proof. Do not split a trailing surrogate pair. Invalid UTF-16 is retained in the private proof and unavailable for display. These are notification values, not authenticity verdicts or a promise of complete command lines.
 - Exact parent start is captured only for the reported-parent-equals-creator case with matching creating PID/TID, using a referenced creator process outside locks. A different designated parent remains PID-only. No current-PID lookup is used to guess designated-parent history, and no parent image path is invented. Notification creation status is recorded without claiming it is the final result of all callbacks.

@@ -1,3 +1,7 @@
+# October 13: seQuester source layout
+
+Source and test folders and managed project filenames now use seQuester. Assemblies, namespaces and installed service/data identities remain compatible. See [Repository layout](docs/REPOSITORY-LAYOUT.md) for build paths and [QA.md](QA.md) for migration verification.
+
 # Feature documentation
 
 For the current product description and capability boundaries, start with [Documentation](docs/README.md) and [Capabilities](docs/CAPABILITIES.md). The entries below preserve chronological engineering and deployment history.
@@ -1244,7 +1248,7 @@ R32 completed the same 21-case native matrix on WIN10, WIN11, Server 2019 and th
 
 ### Narrow implementation plan and changes
 
-- `src/RansomFree.WindowsKernel/ProcessCreationMetadata.h`, `ExecutableStagingDiagnostic.h`, `Driver.c`: copy creation-notification command line and image-open name before callback return. Distinguish reported parent PID from actual creator PID/TID/start. Match the candidate under the existing short lock, copy/lookup outside all locks, then revalidate candidate ID plus callback-owned file object before publishing. No entry pointer survives an unlock. Candidate removal during capture discards the provisional metadata; it cannot attach to a reused slot.
+- `src/seQuester.WindowsKernel/ProcessCreationMetadata.h`, `ExecutableStagingDiagnostic.h`, `Driver.c`: copy creation-notification command line and image-open name before callback return. Distinguish reported parent PID from actual creator PID/TID/start. Match the candidate under the existing short lock, copy/lookup outside all locks, then revalidate candidate ID plus callback-owned file object before publishing. No entry pointer survives an unlock. Candidate removal during capture discards the provisional metadata; it cannot attach to a reused slot.
 - Metadata is per process/candidate, immutable before publication, reference-counted by candidate and queued blob. Process exit, TTL and ACK do not retarget a record. All detach paths release their metadata reference outside locks. A separate 256-object cap bounds metadata pool use to about 1.28 MiB plus allocator overhead; refused allocation yields explicit unavailable evidence. Health operation 28 exposes allocations/frees/refusals/live count.
 - Command line cap: 2,048 UTF-16 code units (4,096 bytes); image name cap: 512 code units (1,024 bytes). Keep original/stored byte lengths, absent/invalid/truncated status and raw UTF-16 proof. Do not split a trailing surrogate pair. Invalid UTF-16 is retained in the private proof and unavailable for display. These are notification values, not authenticity verdicts or a promise of complete command lines.
 - Exact parent start is captured only for the reported-parent-equals-creator case with matching creating PID/TID, using a referenced creator process outside locks. A different designated parent remains PID-only. No current-PID lookup is used to guess designated-parent history, and no parent image path is invented. Notification creation status is recorded without claiming it is the final result of all callbacks.
@@ -3044,7 +3048,7 @@ Manus APC subject-capture memo and Microsoft API contracts confirm that SeCaptur
 
 2026-10-07: all four Windows provider-retirement recovery events verified through raw server API; Desktop/NVR fresh central operation and actor-artifact acceptance passed. Shared action SQL classification with SQLite derived action indexes implemented and wide-payload tests passed; production action-sort performance is pending.
 
-2026-10-07: no-fault advertised Windows driver deployed on four hosts; fresh .24 installed local operation matrix passes 60/60 and fresh artifact/protocol callbacks pass 56/56 with server matches. Fresh installed central operation acceptance pending. Exact Debian native acquisition sources and provenance added to src/RansomFree.LinuxKernel/Lease; Linux native production rollout remains unfinished. Server .36 action-index migration and production UI gates remain running/pending.
+2026-10-07: no-fault advertised Windows driver deployed on four hosts; fresh .24 installed local operation matrix passes 60/60 and fresh artifact/protocol callbacks pass 56/56 with server matches. Fresh installed central operation acceptance pending. Exact Debian native acquisition sources and provenance added to src/seQuester.LinuxKernel/Lease; Linux native production rollout remains unfinished. Server .36 action-index migration and production UI gates remain running/pending.
 
 2026-10-07: server .36 is healthy and retains inventory/assets, but actual production broad Windows/Linux history queries still timed out; this is a failed performance gate. Follow-up history query correction and live server version display are in development. Fresh installed Windows central artifact acceptance and exact deployed Linux .18 native installed-service qualification are running. Signed-in production browser checks and final product QA are pending.
 

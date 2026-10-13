@@ -1,6 +1,6 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#include "../../src/RansomFree.WindowsKernel/ExecutableAccess.h"
+#include "../../src/seQuester.WindowsKernel/ExecutableAccess.h"
 typedef struct { ACCESS_MASK Requested; BOOLEAN Candidate, Qualified; } CASE;
 void mainCRTStartup(void)
 {

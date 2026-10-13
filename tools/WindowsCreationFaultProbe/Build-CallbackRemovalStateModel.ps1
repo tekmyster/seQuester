@@ -4,7 +4,7 @@ $taskCompiler='C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC
 $taskOut=Join-Path $ArtifactRoot ('windows-callback-removal-model-'+$Revision)
 New-Item -ItemType Directory -Path $taskOut -ErrorAction Stop|Out-Null
 $taskSource=Join-Path $PSScriptRoot 'CallbackRemovalStateModel.c'
-$taskHeader=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..\src\RansomFree.WindowsKernel\ImageDiagnostic.h'))
+$taskHeader=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..\src\seQuester.WindowsKernel\ImageDiagnostic.h'))
 $taskText=[IO.File]::ReadAllText($taskHeader);$taskStart=$taskText.IndexOf('static NTSTATUS DiagUnregisterCore(VOID)');$taskEnd=$taskText.IndexOf('static NTSTATUS DiagUnregister(VOID)',$taskStart)
 if($taskStart-lt0-or$taskEnd-le$taskStart){throw 'Exact removal function boundaries unavailable'}
 $taskInclude=Join-Path $taskOut 'CallbackRemovalCore.inc'

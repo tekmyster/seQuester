@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.N05_PLAYWRIGHT || 'C:/Users/dmessana/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
-const source=process.env.N05_SOURCE || new URL('../../src/RansomFree.Server/wwwroot/decoy-services.js',import.meta.url);
+const source=process.env.N05_SOURCE || new URL('../../src/seQuester.Server/wwwroot/decoy-services.js',import.meta.url);
 const output=process.env.N05_EVIDENCE || 'D:/Codex/RansomFree/W-SQ05';
 fs.mkdirSync(output,{recursive:true});
 const browser=await chromium.launch({headless:true,executablePath:process.env.N05_CHROMIUM || 'C:/Users/dmessana/AppData/Local/ms-playwright/chromium-1193/chrome-win/chrome.exe'});

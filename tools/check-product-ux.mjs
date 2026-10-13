@@ -22,7 +22,7 @@ if(process.argv.includes('--self-test')){
  if(!files.length){files=[...new Set([
   ...execFileSync('git',['-c','core.autocrlf=false','diff','HEAD','--name-only'],{encoding:'utf8'}).split(/\r?\n/),
   ...execFileSync('git',['ls-files','--others','--exclude-standard'],{encoding:'utf8'}).split(/\r?\n/)
- ])].filter(file=>/^src\/RansomFree\.Server\/wwwroot\/.*\.(js|html)$/.test(file)&&fs.existsSync(file));}
+ ])].filter(file=>/^src\/seQuester\.Server\/wwwroot\/.*\.(js|html)$/.test(file)&&fs.existsSync(file));}
  let failures=0;for(const file of files){for(const result of inspect(fs.readFileSync(file,'utf8'))){console.error(`${file}:${result.line}: ${result.reason}`);failures++;}}
  if(failures)process.exitCode=1;else console.log(`PASS: Product UX mechanical checks (${files.length} files); visual/editorial review still required`);
 }

@@ -21,7 +21,7 @@ try {
    return {settings:{revision:7,destination:{enabled:true,host:'192.0.2.10',port:514,transport:'TCP',format:'RFC5424',facility:16,severity:4},endpointEvents:true,includeLogOnlyEvents:window.include},endpoints:{message:'Idle',lastSentSequence:0},callbacks:{message:'Idle',lastSentSequence:0},services:{message:'Idle',lastSentSequence:0}};
   };
  });
- await page.addScriptTag({content:fs.readFileSync(new URL('../src/RansomFree.Server/wwwroot/notifications.js',import.meta.url),'utf8')});
+ await page.addScriptTag({content:fs.readFileSync(new URL('../src/seQuester.Server/wwwroot/notifications.js',import.meta.url),'utf8')});
  await page.getByRole('button',{name:'Notifications',exact:true}).click();
  const checkbox=page.getByLabel('Include whitelisted events as logs (no alert)',{exact:true});
  await checkbox.waitFor({state:'visible'});assert.equal(await checkbox.isChecked(),true);

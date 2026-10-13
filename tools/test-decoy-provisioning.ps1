@@ -67,11 +67,11 @@ Write-NewJson $newReceipt $newMarker
 Check ((Get-FileHash -LiteralPath $newReceipt).Hash -eq $newHash) 'exact receipt retry preserves current bytes'
 $refused=$false; try { Write-NewJson $newReceipt $marker } catch { $refused=$true }
 Check ($refused -and (Get-FileHash -LiteralPath $newReceipt).Hash -eq $newHash) 'conflicting receipt write preserves current bytes'
-$program=[IO.File]::ReadAllText((Join-Path $RepositoryRoot 'src\RansomFree.Agent\Program.cs'))
+$program=[IO.File]::ReadAllText((Join-Path $RepositoryRoot 'src\seQuester.Agent\Program.cs'))
 $versions=[regex]::Matches($program,'"([0-9]+\.[0-9]+\.[0-9]+-dev)"')
 Check ($versions.Count -eq 3 -and @($versions | Where-Object { $_.Groups[1].Value -cne '0.6.4-dev' }).Count -eq 0) 'all three emitted Agent version literals agree'
 foreach ($project in @('Agent','Tray','DecoyHost')) {
-    [xml]$definition=Get-Content -LiteralPath (Join-Path $RepositoryRoot "src\RansomFree.$project\RansomFree.$project.csproj") -Raw
+    [xml]$definition=Get-Content -LiteralPath (Join-Path $RepositoryRoot "src\seQuester.$project\seQuester.$project.csproj") -Raw
     Check ($definition.SelectSingleNode('/Project/PropertyGroup/Version').InnerText -eq '0.6.4') ($project+' candidate version agrees')
 }
 [xml]$product=Get-Content -LiteralPath (Join-Path $RepositoryRoot 'packaging\windows\Product.wxs') -Raw

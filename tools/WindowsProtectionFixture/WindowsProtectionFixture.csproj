@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\RansomFree.Contracts\RansomFree.Contracts.csproj" />
-    <Compile Include="..\..\src\RansomFree.Agent\WindowsProtectionStatus.cs" Link="WindowsProtectionStatus.cs" />
+    <ProjectReference Include="..\..\src\seQuester.Contracts\seQuester.Contracts.csproj" />
+    <Compile Include="..\..\src\seQuester.Agent\WindowsProtectionStatus.cs" Link="WindowsProtectionStatus.cs" />
     <Compile Include="..\..\CanaryEvidence.cs" Link="CanaryEvidence.cs" />
   </ItemGroup>
 </Project>

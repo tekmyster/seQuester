@@ -21,27 +21,27 @@ The screenshot shows an isolated development build, not production telemetry.
 
 | Directory | Contents |
 | --- | --- |
-| `src/RansomFree.Server` | Management server, persistence and web UI |
-| `src/RansomFree.Receiver` | Canary callback receiver |
-| `src/RansomFree.Agent` | Windows sensor service |
-| `src/RansomFree.LinuxAgent` | Linux sensor |
-| `src/RansomFree.Contracts` | Shared event and policy contracts |
-| `src/RansomFree.WindowsKernel` | Windows native capture source |
-| `src/RansomFree.LinuxKernel` | Linux native capture source |
+| `src/seQuester.Server` | Management server, persistence and web UI |
+| `src/seQuester.Receiver` | Canary callback receiver |
+| `src/seQuester.Agent` | Windows sensor service |
+| `src/seQuester.LinuxAgent` | Linux sensor |
+| `src/seQuester.Contracts` | Shared event and policy contracts |
+| `src/seQuester.WindowsKernel` | Windows native capture source |
+| `src/seQuester.LinuxKernel` | Linux native capture source |
 | `packaging` | Platform packaging and configuration templates |
 | `tests`, `tools` | Tests, fixtures and build tools |
 | `docs` | Architecture, feature plans, operational guidance and UX contract |
 
-Internal project names retain the existing `RansomFree` prefix for compatibility.
+Folders and project files use the `seQuester` prefix. Assembly names, namespaces and installed service paths retain their existing identifiers for compatibility. See the [layout migration](docs/REPOSITORY-LAYOUT.md).
 
 ## Build
 
 Managed projects require the .NET 10 SDK. Windows projects require Windows build support. Native components have separate platform toolchain requirements described in their documentation.
 
 ```powershell
-dotnet build src/RansomFree.Server/RansomFree.Server.csproj -c Release
-dotnet build src/RansomFree.Agent/RansomFree.Agent.csproj -c Release
-dotnet build src/RansomFree.LinuxAgent/RansomFree.LinuxAgent.csproj -c Release
+dotnet build src/seQuester.Server/seQuester.Server.csproj -c Release
+dotnet build src/seQuester.Agent/seQuester.Agent.csproj -c Release
+dotnet build src/seQuester.LinuxAgent/seQuester.LinuxAgent.csproj -c Release
 ```
 
 Build and packaging scripts are in `tools`. Some scripts use local Windows tool paths and must be configured for the build machine. Configuration templates are provided under `packaging`; supply deployment credentials separately.

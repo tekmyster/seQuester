@@ -6,7 +6,7 @@ The controlled-v4 Linux capture source is deployed on all 26 Linux sensors.
 Acceptance `LINUX-IO-DEPLOYMENT-ACCEPTANCE-20261010-R10.json` records 364 installed
 operation cases, 1,456 linked server events, 364 authenticated executable/manifest
 download pairs, normal source restart checks and final readiness on all sensors.
-The actual source is maintained in `src/RansomFree.LinuxKernel/Lease/Atomic`.
+The actual source is maintained in `src/seQuester.LinuxKernel/Lease/Atomic`.
 Installation metadata uses manifest version 5, control version 4 and event schema 8.
 Qualified kernel profiles include Debian 6.12.94, 6.12.95 and 6.12.86, Debian 6.1.0-50,
 and Ubuntu 6.8.0-134 and 6.8.0-138. Each profile requires its exact admitted kernel,

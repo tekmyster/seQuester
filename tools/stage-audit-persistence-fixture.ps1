@@ -7,7 +7,7 @@ $env:TEMP='D:\Codex\RansomFree\temp';$env:TMP=$env:TEMP
 $env:NUGET_PACKAGES='D:\Codex\RansomFree\nuget-packages';$env:NUGET_HTTP_CACHE_PATH='D:\Codex\RansomFree\nuget-http-cache'
 $sdk='C:\Users\dmessana\AppData\Local\RansomFreeBuild\dotnet\dotnet.exe'
 [void][IO.Directory]::CreateDirectory($context)
-foreach($entry in @(@('src/RansomFree.LinuxAgent','app'),@('tools/AuditStatusFixture','status-fixture'),@('tools/AuditHealthFixture','health-fixture'),@('tools/EndpointHealthSummaryFixture','summary-fixture'),@('tools/AuditRuleMaskFixture','mask-fixture'),@('tools/AuditRuleFixture','fixture'))){
+foreach($entry in @(@('src/seQuester.LinuxAgent','app'),@('tools/AuditStatusFixture','status-fixture'),@('tools/AuditHealthFixture','health-fixture'),@('tools/EndpointHealthSummaryFixture','summary-fixture'),@('tools/AuditRuleMaskFixture','mask-fixture'),@('tools/AuditRuleFixture','fixture'))){
     & $sdk publish (Join-Path $repo $entry[0]) -c Release -r linux-x64 --self-contained true --artifacts-path D:\Codex\RansomFree\artifacts -o (Join-Path $context $entry[1]) -p:RestoreLockedMode=true -p:DebugType=None -p:DebugSymbols=false -p:SourceRevisionId=$agentSourceRevision
     if($LASTEXITCODE -ne 0){throw 'Fixture publish failed; partial output preserved.'}
 }

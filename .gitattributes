@@ -1,6 +1,6 @@
-src/RansomFree.AuditRelay/Program.cs text eol=lf
-src/RansomFree.AuditRelay/RansomFree.AuditRelay.csproj text eol=lf
-src/RansomFree.LinuxAgent/AuditRulePlan.cs text eol=lf
+src/seQuester.AuditRelay/Program.cs text eol=lf
+src/seQuester.AuditRelay/seQuester.AuditRelay.csproj text eol=lf
+src/seQuester.LinuxAgent/AuditRulePlan.cs text eol=lf
 tools/AuditRuleFixture/Program.cs text eol=lf
 tools/AuditRuleFixture/AuditRuleFixture.csproj text eol=lf
 tools/AuditRuleMaskFixture/Program.cs text eol=lf

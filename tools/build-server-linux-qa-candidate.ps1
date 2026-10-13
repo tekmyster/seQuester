@@ -36,8 +36,8 @@ New-Item -ItemType Directory -Path $env:TEMP -Force|Out-Null
 if($LASTEXITCODE){throw 'SDK inspection failed.'}
 $artifacts=Join-Path $run 'artifacts'
 $roles=@(
- @{Name='management';Version='0.6.5';Assembly='RansomFree.Server';Packaging='linux-management'},
- @{Name='client';Version='0.9.9';Assembly='RansomFree.LinuxAgent';Packaging='linux-client'}
+ @{Name='management';Version='0.6.5';Project='seQuester.Server';Assembly='RansomFree.Server';Packaging='linux-management'},
+ @{Name='client';Version='0.9.9';Project='seQuester.LinuxAgent';Assembly='RansomFree.LinuxAgent';Packaging='linux-client'}
 )
 $outputs=@()
 foreach($role in $roles){
@@ -46,20 +46,20 @@ foreach($role in $roles){
  New-Item -ItemType Directory -Path $payload -Force|Out-Null
  $app=Join-Path $payload 'app'
  $log=Join-Path $run ($role.Name+'-publish.log')
- & $Dotnet publish (Join-Path $repo "src/$($role.Assembly)/$($role.Assembly).csproj") -c Release -r $Runtime --self-contained true --artifacts-path $artifacts -o $app -p:RestoreLockedMode=true -p:DebugType=None -p:DebugSymbols=false 2>&1 | Out-File $log
+ & $Dotnet publish (Join-Path $repo "src/$($role.Project)/$($role.Project).csproj") -c Release -r $Runtime --self-contained true --artifacts-path $artifacts -o $app -p:RestoreLockedMode=true -p:DebugType=None -p:DebugSymbols=false 2>&1 | Out-File $log
  if($LASTEXITCODE){throw "Publication failed: $log"}
  if([Diagnostics.FileVersionInfo]::GetVersionInfo((Join-Path $app ($role.Assembly+'.dll'))).FileVersion -ne ($role.Version+'.0')){throw 'Assembly identity mismatch.'}
  Copy-Item -Path (Join-Path $repo "packaging/$($role.Packaging)/*") -Destination $payload -Recurse
  $nativeGaps=@('Native Linux three-pass QA has not run for this source, installer or binaries.','No installation, service transition, upgrade or rollback acceptance.','No deployment or release approval.')
  if($role.Name -eq 'client'){
   $desktop=Join-Path $payload 'desktop'
-  & $Dotnet publish (Join-Path $repo 'src/RansomFree.UnixDesktop/RansomFree.UnixDesktop.csproj') -c Release -r $Runtime --self-contained true --artifacts-path $artifacts -o $desktop -p:RestoreLockedMode=true -p:DebugType=None -p:DebugSymbols=false 2>&1 | Out-File (Join-Path $run 'desktop-publish.log')
+  & $Dotnet publish (Join-Path $repo 'src/seQuester.UnixDesktop/seQuester.UnixDesktop.csproj') -c Release -r $Runtime --self-contained true --artifacts-path $artifacts -o $desktop -p:RestoreLockedMode=true -p:DebugType=None -p:DebugSymbols=false 2>&1 | Out-File (Join-Path $run 'desktop-publish.log')
   if($LASTEXITCODE){throw 'Desktop publication failed.'}
   if([Diagnostics.FileVersionInfo]::GetVersionInfo((Join-Path $desktop 'RansomFree.UnixDesktop.dll')).FileVersion -ne '0.9.2.0'){throw 'Desktop identity mismatch.'}
   if($RelayProof -and $RelayDirectory){
    $proof=Get-Content -LiteralPath $RelayProof -Raw|ConvertFrom-Json
    if($proof.Runtime -ne $Runtime -or $proof.Version -ne '0.9.1' -or $proof.ProtocolVersion -ne 1){throw 'Native relay proof identity mismatch.'}
-   foreach($pair in @(@('Program.cs',$proof.ProgramSha256),@('RansomFree.AuditRelay.csproj',$proof.ProjectSha256))){if((Get-FileHash -LiteralPath (Join-Path $repo ('src/RansomFree.AuditRelay/'+$pair[0]))).Hash -ne $pair[1]){throw 'Native relay source mismatch.'}}
+   foreach($pair in @(@('Program.cs',$proof.ProgramSha256),@('seQuester.AuditRelay.csproj',$proof.ProjectSha256))){if((Get-FileHash -LiteralPath (Join-Path $repo ('src/seQuester.AuditRelay/'+$pair[0]))).Hash -ne $pair[1]){throw 'Native relay source mismatch.'}}
    if((Get-FileHash -LiteralPath (Join-Path $RelayDirectory 'RansomFree.AuditRelay')).Hash -ne $proof.BinarySha256){throw 'Native relay binary mismatch.'}
    $relay=Join-Path $payload 'audit-relay';New-Item -ItemType Directory -Path $relay|Out-Null
    Copy-Item -LiteralPath (Join-Path $RelayDirectory 'RansomFree.AuditRelay') -Destination $relay

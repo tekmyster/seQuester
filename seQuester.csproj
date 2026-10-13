@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><RootNamespace>RansomFree</RootNamespace>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>RansomFree</AssemblyName>
+    <Version>0.6.2</Version>
+    <DefaultItemExcludes>$(DefaultItemExcludes);tools/**;dist*/**;test-results/**;src/**;tests/**</DefaultItemExcludes>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets/Branding/sequester.ico" LogicalName="Quiver.seQuester.Icon" />
+    <ProjectReference Include="src/seQuester.Contracts/seQuester.Contracts.csproj" />
+    <EmbeddedResource Include="Assets\canary.docx" LogicalName="RansomFree.Templates.canary.docx" />
+    <EmbeddedResource Include="Assets\canary.xlsx" LogicalName="RansomFree.Templates.canary.xlsx" />
+    <EmbeddedResource Include="Assets\canary.pdf" LogicalName="RansomFree.Templates.canary.pdf" />
+  </ItemGroup>
+</Project>

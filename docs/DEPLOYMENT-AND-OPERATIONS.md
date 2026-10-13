@@ -29,10 +29,10 @@ Do not publish certificates, passwords, sensor credentials or database connectio
 Install the .NET 10 SDK. From the repository root:
 
 ```powershell
-dotnet build src/RansomFree.Server/RansomFree.Server.csproj -c Release
-dotnet build src/RansomFree.Receiver/RansomFree.Receiver.csproj -c Release
-dotnet build src/RansomFree.Agent/RansomFree.Agent.csproj -c Release
-dotnet build src/RansomFree.LinuxAgent/RansomFree.LinuxAgent.csproj -c Release
+dotnet build src/seQuester.Server/seQuester.Server.csproj -c Release
+dotnet build src/seQuester.Receiver/seQuester.Receiver.csproj -c Release
+dotnet build src/seQuester.Agent/seQuester.Agent.csproj -c Release
+dotnet build src/seQuester.LinuxAgent/seQuester.LinuxAgent.csproj -c Release
 ```
 
 Windows projects need Windows targeting support. Kernel sources have separate WDK/Linux build requirements. Managed compilation alone does not validate kernel loading, callbacks or endpoint attribution.

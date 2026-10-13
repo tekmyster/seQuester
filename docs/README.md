@@ -31,7 +31,7 @@ This documentation describes the development source published on October 13, 202
 | Incident | An analyst-created case linking activity, ownership and investigation notes. |
 | Receipt | An acknowledgement for a particular delivery stage. Its meaning depends on that stage. |
 
-Use **seQuester** for the product and **Sensors** for inventory. Existing `RansomFree` namespaces, routes, service names and paths remain unchanged for compatibility. This documentation update does not introduce a new brand identity.
+Use **seQuester** for the product and **Sensors** for inventory. Source folders and project files use `seQuester`; existing assembly names, namespaces, routes and installed service paths remain unchanged for compatibility. See [Repository layout](REPOSITORY-LAYOUT.md).
 
 ## Detailed engineering references
 

@@ -4,8 +4,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 ENV DOTNET_ROOT=/opt/dotnet PATH=/opt/dotnet:$PATH DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1
 RUN curl --fail --location --retry 3 https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.401/dotnet-sdk-10.0.401-linux-x64.tar.gz -o /tmp/sdk.tar.gz && echo '51c8b999af9e8dd9998c9edc5944e19a90788862068acd38694e098889054ce8c23d4f0c5cccfa16bf187d044562359e5ee69a9f8ad0bbe913ba90311fbce25b  /tmp/sdk.tar.gz' | sha512sum --check --strict && mkdir -p /opt/dotnet && tar -xzf /tmp/sdk.tar.gz -C /opt/dotnet && rm /tmp/sdk.tar.gz
 WORKDIR /src
-COPY src/RansomFree.AuditRelay/ ./
-RUN dotnet publish RansomFree.AuditRelay.csproj -c Release -r linux-x64 --self-contained true -p:PublishAot=true -p:StripSymbols=false --artifacts-path /build-artifacts -o /out
+COPY src/seQuester.AuditRelay/ ./
+RUN dotnet publish seQuester.AuditRelay.csproj -c Release -r linux-x64 --self-contained true -p:PublishAot=true -p:StripSymbols=false --artifacts-path /build-artifacts -o /out
 RUN /out/RansomFree.AuditRelay --version > /out/native-version.txt && dotnet --info > /out/build-sdk.txt && dpkg-query -W > /out/native-packages.txt && sha256sum /out/RansomFree.AuditRelay > /out/native-relay.sha256
 FROM scratch AS artifact
 COPY --from=build /out/ /

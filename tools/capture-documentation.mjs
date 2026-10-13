@@ -12,7 +12,7 @@ const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.SEQUESTER_PLAYWRIGHT_MODULE || 'playwright');
 const serverDll=process.env.SEQUESTER_DOC_SERVER_DLL;
 assert.ok(serverDll && path.isAbsolute(serverDll) && fs.existsSync(serverDll),'Supply SEQUESTER_DOC_SERVER_DLL');
-const sourceWebRoot=path.resolve(import.meta.dirname,'../src/RansomFree.Server/wwwroot');
+const sourceWebRoot=path.resolve(import.meta.dirname,'../src/seQuester.Server/wwwroot');
 const publishedWebRoot=path.join(path.dirname(serverDll),'wwwroot');
 const sourceWebRootSha256={};
 function verifyWebRoot(directory){

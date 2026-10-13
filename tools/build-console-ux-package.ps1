@@ -23,7 +23,7 @@ $release='sequester-console-0.6.4-ux.'+[DateTime]::UtcNow.ToString('yyyyMMddTHHm
 $root=Join-Path $WorkRoot ('packages\console-ux\'+$release)
 if(Test-Path -LiteralPath $root){throw 'Immutable destination already exists.'}
 $payload=Join-Path $root 'payload';[void][IO.Directory]::CreateDirectory((Join-Path $payload 'wwwroot'))
-foreach($file in Get-ChildItem -LiteralPath (Join-Path $repo 'src\RansomFree.Server\wwwroot') -File){
+foreach($file in Get-ChildItem -LiteralPath (Join-Path $repo 'src\seQuester.Server\wwwroot') -File){
     if($file.Extension -notin @('.html','.css','.js')){throw 'Unexpected non-UI source; review before packaging.'}
     if($file.Extension -eq '.js'){& node --check $file.FullName;if($LASTEXITCODE -ne 0){throw 'JavaScript syntax failure.'}}
     Copy-Item -LiteralPath $file.FullName -Destination (Join-Path $payload 'wwwroot')

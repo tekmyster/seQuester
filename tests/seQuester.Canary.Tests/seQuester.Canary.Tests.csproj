@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup><AssemblyName>RansomFree.Canary.Tests</AssemblyName><RootNamespace>RansomFree.Canary.Tests</RootNamespace><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../../src/seQuester.Server/seQuester.Server.csproj" /></ItemGroup>
+</Project>

@@ -7,7 +7,7 @@ Status: planned at the user's request on October 11, 2026. Add responses that st
 
 ## Existing foundation
 
-The [remote response design](../src/RansomFree.Agent/REMOTE_RESPONSES.md) documents a Windows process-stop implementation with local permission gates, administrator reauthentication, recent local event matching, identity checks, exclusions, durable intent and receipts. Its acceptance status must be checked against current QA before reuse. Extend that implementation rather than creating a second unrestricted command channel.
+The [remote response design](../src/seQuester.Agent/REMOTE_RESPONSES.md) documents a Windows process-stop implementation with local permission gates, administrator reauthentication, recent local event matching, identity checks, exclusions, durable intent and receipts. Its acceptance status must be checked against current QA before reuse. Extend that implementation rather than creating a second unrestricted command channel.
 
 The [open work register](CURRENT-OPEN-WORK.md) records unresolved live reporting and executable-preservation issues. Qualification must cover the actual event source used by each response; successful capture in a different fixture does not qualify an enforcement path.
 
