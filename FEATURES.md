@@ -1,3 +1,7 @@
+# Feature documentation
+
+For the current product description and capability boundaries, start with [Documentation](docs/README.md) and [Capabilities](docs/CAPABILITIES.md). The entries below preserve chronological engineering and deployment history.
+
 ## October 12: decoy-job History UX cleanup deployed
 
 ## October 12: response, whitelist and Wazuh integration in progress

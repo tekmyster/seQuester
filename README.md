@@ -2,6 +2,21 @@
 
 Endpoint honeypot monitoring, canary callbacks, process attribution and forensic evidence collection, with a central management server and web interface.
 
+## Documentation
+
+Start with the [documentation index](docs/README.md).
+
+- [User guide](docs/USER-GUIDE.md): monitoring, investigation, canaries and reports.
+- [Administrator guide](docs/ADMINISTRATOR-GUIDE.md): enrollment, policies, whitelists and delivery.
+- [Deployment and operations](docs/DEPLOYMENT-AND-OPERATIONS.md): installation, upgrades and recovery.
+- [Architecture and evidence](docs/ARCHITECTURE-AND-EVIDENCE.md) and [API guide](docs/API-GUIDE.md).
+- [Capability register](docs/CAPABILITIES.md): implemented features, acceptance boundaries and open work.
+- [Screenshot reference](docs/SCREENSHOTS.md) and [Development guide](docs/DEVELOPMENT.md).
+
+![Sensors with synthetic Windows and Linux documentation data](docs/screenshots/sensors-desktop.png)
+
+The screenshot shows an isolated development build, not production telemetry.
+
 ## Project layout
 
 | Directory | Contents |
@@ -35,7 +50,7 @@ Build and packaging scripts are in `tools`. Some scripts use local Windows tool 
 
 This repository contains the current development source snapshot, including work in progress. Publishing it does not deploy or qualify a release.
 
-See [FEATURES.md](FEATURES.md), [current open work](docs/CURRENT-OPEN-WORK.md) and the [integration checkpoint](docs/RESPONSE-POLICY-INTEGRATION-20261012.md) for verified behavior and pending work. Active response, additional whitelist controls, Linux native hash-based whitelisting and Wazuh integration still have outstanding acceptance or integration work. Responsive filtering improvements remain queued.
+See the [capability register](docs/CAPABILITIES.md) for current status. [FEATURES.md](FEATURES.md), [current open work](docs/CURRENT-OPEN-WORK.md) and the [integration checkpoint](docs/RESPONSE-POLICY-INTEGRATION-20261012.md) retain detailed engineering history. Active response, additional whitelist controls, Linux native hash-based whitelisting and Wazuh integration still have outstanding acceptance or integration work. Responsive filtering improvements remain queued.
 
 ## Publication contents
 

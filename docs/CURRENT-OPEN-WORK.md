@@ -1,3 +1,7 @@
+# Current work and historical checkpoints
+
+The consolidated [capability register](CAPABILITIES.md) describes current open work. The entries below retain dated engineering checkpoints and may include superseded states.
+
 ## October 12: decoy-job History UX cleanup deployed
 
 ## October 12: response, whitelist and Wazuh integration in progress

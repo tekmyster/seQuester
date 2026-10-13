@@ -1,3 +1,13 @@
+# Documentation review — October 13, 2026
+
+Added nine guides covering user and administrator workflows, deployment/recovery, architecture/evidence, APIs, capabilities, development and screenshots. Updated the root README and permanent contract from the latest user-supplied text, preserving the repository enforcement appendix.
+
+Screenshot capture: 18 actual desktop/mobile images and 20 automated browser checks against an isolated authenticated 0.6.45-dev server with synthetic data. The web-root files matched the published source by SHA-256 comparison. All images were visually inspected; credentials and production data are absent. No policy, response, external callback or production integration was activated. This is documentation/presentation verification, not a new native forensic or all-host deployment pass.
+
+The first capture run failed because its isolated state directory was absent; the tool now creates it before SQLite identity startup. An early sensor screenshot was taken before rows loaded; capture now waits for populated sensor/event rows. Overview revisit produced a real caught UI error: incidents.js removes overview-informational while console.js still updates it. This remains documented in CAPABILITIES.md; the Overview image shows the successful initial load.
+
+Documentation verification: all 89 local links and image references resolve; the capture script syntax and Product UX checker positive/negative controls pass. Documentation-only changes do not alter APIs, runtime behavior or accepted deployments. Historical acceptance records follow.
+
 ## October 12: decoy-job History UX cleanup deployed
 
 ## October 12: response, whitelist and Wazuh integration in progress
