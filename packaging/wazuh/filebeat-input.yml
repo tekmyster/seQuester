@@ -1,0 +1,17 @@
+# Merge this input with the installed Filebeat configuration; retain the
+# existing Wazuh module, TLS settings, output credentials and processors.
+type: log
+enabled: true
+paths:
+  - /var/lib/sequester-wazuh/events*.jsonl
+json.keys_under_root: true
+json.add_error_key: true
+json.document_id: document_id
+max_bytes: 131072
+fields:
+  sequester_feed: true
+fields_under_root: true
+processors:
+  - drop_fields:
+      fields: [host]
+      ignore_missing: true

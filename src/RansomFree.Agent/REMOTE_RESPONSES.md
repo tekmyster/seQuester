@@ -1,0 +1,15 @@
+# Remote process response — build-only implementation
+
+Remote requests are disabled on endpoints unless a local administrator provisions `response-permissions.json` in the protected agent data directory with `{ "AllowRemoteProcessStop": true }`. No permissions file has been created by this implementation.
+
+An administrator selects fresh Windows 4663 evidence in Alerts, provides a reason, and reauthenticates with password/recent SSO plus app MFA when enabled. The server resolves the endpoint/event itself; the browser never supplies a PID. Requests expire after two minutes. The agent requires its own recent matching event with captured process identity, rechecks the allowlist, process creation time, executable path and file hash, and excludes critical/Windows/self processes. Remote callbacks cannot authorize process responses.
+
+The agent persists execution intent before acting. If it restarts with only an intent, it reports Indeterminate and does not repeat the action. Final receipts remain queued independently of command expiry and are retried after reconnect. A successful receipt is the endpoint's report of confirmed process exit, not an independent server observation. Failure or missing receipt does not prove that termination never happened. The journal preserves up to 2,000 records; capacity/invalid-storage failures disable further action pending review rather than discarding evidence.
+
+Only Pending commands can be cancelled. Offered commands may already be executing and cannot be recalled by this implementation. Revocation blocks subsequent authenticated polls/receipts but cannot instantaneously undo an already delivered action. Requests, cancellation and receipts are audited. No remote response was requested or executed during implementation; all acceptance checks remain pending in QA.md.
+
+## Separate automatic response mode
+
+Automatic response additionally requires `AllowAutomaticProcessStop: true` in the same protected local permissions file and an enabled centrally published policy. Both default to off. Publishing an enabled automatic policy requires administrator reauthentication. Read/copy-possible, write, delete and permission-change audit operations are independently selectable; the initial disabled policy selects write/delete, not reads. A read may be antivirus/indexing activity, so enabling read responses is particularly disruptive and requires later false-positive acceptance testing.
+
+Only local Windows 4663 events with captured process identity enter a bounded 32-event work queue. Events older than 30 seconds, allowlisted processes and excluded identities are not actionable. The policy limits attempts to 1–10 per minute (default three) and at most one attempt per process identity within five minutes. A separate durable automatic-response journal records intent and result. Queue/capacity/storage problems are logged, not interpreted as successful protection. Existing activity logging continues if a response attempt is skipped. No process tree killing or callback-triggered automatic response is implemented.

@@ -1,0 +1,6 @@
+# Review prerequisites and enable explicitly; never overwrite an existing plugin.
+active = no
+direction = out
+path = /opt/ransomfree-client/current/audit/launch-relay.sh
+type = always
+format = string

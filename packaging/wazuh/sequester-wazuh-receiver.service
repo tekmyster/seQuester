@@ -1,0 +1,26 @@
+[Unit]
+Description=seQuester event receiver
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=wazuh
+Group=wazuh
+UMask=0027
+ExecStart=/usr/bin/python3 /opt/sequester-wazuh/sequester_receiver.py --config /etc/sequester-wazuh/receiver.json
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=20
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/sequester-wazuh
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=256M
+TasksMax=16
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,1 @@
+CREATE TABLE dbo.trust_capabilities(endpoint varchar(32) COLLATE Latin1_General_100_BIN2 NOT NULL PRIMARY KEY REFERENCES dbo.endpoints(id),policy_version int NOT NULL,kernel_trust_version int NOT NULL,os nvarchar(16) NOT NULL,reported bigint NOT NULL);

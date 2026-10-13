@@ -1,0 +1,1 @@
+CREATE TABLE dbo.response_capabilities(endpoint varchar(32) COLLATE Latin1_General_100_BIN2 NOT NULL PRIMARY KEY REFERENCES dbo.endpoints(id),os varchar(16) NOT NULL,process_version int NOT NULL,reported bigint NOT NULL);

@@ -1,0 +1,45 @@
+[Unit]
+Description=Ransom Free Linux endpoint
+Documentation=file:/opt/ransomfree-client/current/README.md
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/var/lib/ransomfree-client/connection.json
+
+[Service]
+Type=simple
+User=rfclient
+Group=rfclient-ui
+SupplementaryGroups=rfclient
+ExecStart=/opt/ransomfree-client/current/app/RansomFree.LinuxAgent --run
+WorkingDirectory=/var/lib/ransomfree-client
+StateDirectory=ransomfree-client
+StateDirectoryMode=0700
+RuntimeDirectory=ransomfree-client
+RuntimeDirectoryMode=0750
+UMask=0077
+Environment=DOTNET_ENVIRONMENT=Production
+Environment=DOTNET_CLI_TELEMETRY_OPTOUT=1
+Environment=TMPDIR=/var/lib/ransomfree-client/tmp
+Restart=on-failure
+RestartSec=10s
+TimeoutStopSec=30s
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
+ReadWritePaths=/var/lib/ransomfree-client /run/ransomfree-client
+# Explicit approved deployment folders are added by the .NET --stage-config command.
+
+[Install]
+WantedBy=multi-user.target

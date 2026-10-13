@@ -1,0 +1,78 @@
+{
+  "Product": "Quiver seQuester",
+  "SourceSha256": "B517358EA89EF70EA196F0D682573A5512C966721084711966CA7F312FD84C9E",
+  "Transformation": "Whole artwork resized only; white source background preserved. No crop, redraw or recolor.",
+  "NativeVisualAcceptance": "Pending",
+  "Files": [
+    {
+      "Path": "sequester-1024.png",
+      "Bytes": 687724,
+      "Sha256": "6BE71251A04D6D2E90B4905B1A491E3DDCD0719269F67508D5541FAFBEF8E3F9"
+    },
+    {
+      "Path": "sequester-128.png",
+      "Bytes": 13112,
+      "Sha256": "B7B01F1221F2FC2608821D3729475B9C06AD8CA2E588FC3AF18A656FAA5E6480"
+    },
+    {
+      "Path": "sequester-16.png",
+      "Bytes": 598,
+      "Sha256": "D75E02AC7FF812A165B97C672EC5CA47DBB0C932A2CAEC2210843A434505DA86"
+    },
+    {
+      "Path": "sequester-180.png",
+      "Bytes": 24727,
+      "Sha256": "6C6BC1CC822CF632246178A1475BCCCA19634A4AED085041EE67E8136341BA5B"
+    },
+    {
+      "Path": "sequester-192.png",
+      "Bytes": 28513,
+      "Sha256": "15E6119F4EA2A2363FF09F3CA81F7D9BB821130B5EC4CB3F3D0BBCD84E942AD7"
+    },
+    {
+      "Path": "sequester-24.png",
+      "Bytes": 1039,
+      "Sha256": "57C8D1529827F3C18F8E0624D1265FDADE5F3A092B3949F12525FAF8ADF0CC4F"
+    },
+    {
+      "Path": "sequester-256.png",
+      "Bytes": 52120,
+      "Sha256": "EF71B9131B454D20EFEF21DAC8FC3CC1B81E7834240EC41DC5AB65AF2076D139"
+    },
+    {
+      "Path": "sequester-32.png",
+      "Bytes": 1504,
+      "Sha256": "789BE44933A085ECB76AA245A2E82A95A3A7FC33C1E90BA7C70D4B513F5B3D5B"
+    },
+    {
+      "Path": "sequester-48.png",
+      "Bytes": 2737,
+      "Sha256": "A519A18B8EB2A65F6DD793E6358BBE735E4B4A938BE2C5B6DB7EBE3D30D08D16"
+    },
+    {
+      "Path": "sequester-512.png",
+      "Bytes": 205581,
+      "Sha256": "CFBEC6F4ED4A1F77C7C3A6AF403DCB08A4D67859D33777825EC88FA43D7DEE3C"
+    },
+    {
+      "Path": "sequester-64.png",
+      "Bytes": 4240,
+      "Sha256": "9ED2CCCBD418FCAD7DA296204FD4E2BD303282C232EE80A94B33CF74F59B83F9"
+    },
+    {
+      "Path": "sequester-original.jpg",
+      "Bytes": 140609,
+      "Sha256": "B517358EA89EF70EA196F0D682573A5512C966721084711966CA7F312FD84C9E"
+    },
+    {
+      "Path": "sequester.icns",
+      "Bytes": 964943,
+      "Sha256": "C79D10FC312CBE22989CECABC126F8560E7C6C6EBB0DC4F8935B6958B80EB2B6"
+    },
+    {
+      "Path": "sequester.ico",
+      "Bytes": 75468,
+      "Sha256": "26627790C3D1748B756751C1EEA6E3FF958A0D4F64B5A309AF3ED94BC2DFB7A1"
+    }
+  ]
+}

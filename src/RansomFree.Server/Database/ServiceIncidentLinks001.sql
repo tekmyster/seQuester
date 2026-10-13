@@ -1,0 +1,1 @@
+CREATE TABLE dbo.incident_service_events(incident char(32) NOT NULL REFERENCES dbo.incidents(id),event_sequence bigint NOT NULL REFERENCES dbo.service_evidence(sequence),CONSTRAINT PK_incident_service_events PRIMARY KEY(incident,event_sequence));

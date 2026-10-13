@@ -1,0 +1,24 @@
+{
+  "ImportedFrom": "diagnostics/windows-token-20260930/linux-actor-lease-v27",
+  "ImportedSha256": {
+    "sq_actor_lease.c": "ceef1800dcf5fa7722e013aa42f796e740142405fc03da081ee6dfa9d8dee401",
+    "sq_atomic_control.h": "c5f61f5114cebe3d4ba546ef86cd8ef7b7d9d1d50b9ade660a71ac94c56901b0",
+    "sq_atomic_native.h": "d1b48d133daa98cd3c2902ac2c41833752a8dc390f3053e5d933d1295431841b",
+    "sq_atomic_protocol.h": "86d8a80917be61ab486da2dd46067cb61e1a6c7b9b383c9e36b03d94066a6cbf",
+    "sq_atomic_start.h": "89945d1493fce5596a1944cdaf11c043da6b65e524c357a0ce79ae6eb802419a",
+    "sq_lease.h": "0c7f98caff7458ce13ea89e67f40f88e985d34f1d809a6f9843c4072e01ded2a",
+    "Makefile": "7b51c265457d831d5cc053e2b02d42b719ec1754bd05f0054de2779027d2db1e",
+    "lease_event.h": "2d019e3c7d3e457eaf572fc4c73e67b250834b55fdd0bfd25e0bbfdd650e4229",
+    "controlled_common.h": "80a76a65ad5ad3d40059fdab36de141798b5b2e13a43e0a62f6a07ae7e7f4f30",
+    "controlled_v2_targets.h": "7538436281bb89624a7678b851b35686282455858f445e66d336ce692ad9ce19",
+    "controlled_loader.h": "30e5ed8ce8ddc1eba43f6ade38029132f5d4e22769f89bebcf85f34a79fec487",
+    "controlled_v2_loader.h": "f7b8d06acc40b6d3c84485c8ded71ae4558b6060b8d2e6dcc03831d3a726cde5",
+    "atomic_operation_event.h": "b4a5fc9ecfd78334d58d082b4b18002c59e1b705b955ed67562046f6fe15f86a",
+    "atomic-operation.bpf.c": "2c9e60c6fc9513e321aa2d747290cccfac3b43029233eae59765f8eb1c48d3b4",
+    "atomic-controlled-loader.c": "2658f4745e14eb968a5fde37a3671d7646c5ba8dd080e57e633fc90b387b8c2e",
+    "lease.bpf.c": "f512160ecd8624ef88bcc8e8d8bc402acfcfdd0bc65721303194852fb7047f3d"
+  },
+  "Status": "I/O candidate: not built, attached, qualified or deployed",
+  "NativeIoFrameBytes": 304,
+  "NativeIoSchema": 3
+}

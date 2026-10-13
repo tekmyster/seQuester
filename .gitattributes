@@ -1,0 +1,21 @@
+src/RansomFree.AuditRelay/Program.cs text eol=lf
+src/RansomFree.AuditRelay/RansomFree.AuditRelay.csproj text eol=lf
+src/RansomFree.LinuxAgent/AuditRulePlan.cs text eol=lf
+tools/AuditRuleFixture/Program.cs text eol=lf
+tools/AuditRuleFixture/AuditRuleFixture.csproj text eol=lf
+tools/AuditRuleMaskFixture/Program.cs text eol=lf
+tools/AuditRuleMaskFixture/AuditRuleMaskFixture.csproj text eol=lf
+tools/audit-mask-fixture.sh text eol=lf
+tools/audit-mask-debian.Dockerfile text eol=lf
+tools/audit-rule-lifecycle-fixture.sh text eol=lf
+packaging/linux-client/audit/sequester-audit-rules.service text eol=lf
+packaging/linux-client/audit/launch-relay.sh text eol=lf
+*.pdf binary
+*.docx binary
+*.xlsx binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.icns binary
+*.ttf binary
+Assets/Branding/brand-assets.json -text

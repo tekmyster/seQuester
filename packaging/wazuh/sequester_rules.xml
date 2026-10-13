@@ -1,0 +1,29 @@
+<group name="sequester,">
+  <rule id="100200" level="0">
+    <decoded_as>json</decoded_as>
+    <field name="sequester_schema_version">^1$</field>
+    <description>seQuester event</description>
+  </rule>
+  <rule id="100201" level="0">
+    <if_sid>100200</if_sid>
+    <field name="notification_suppressed">^true$</field>
+    <description>seQuester whitelisted activity retained as evidence</description>
+  </rule>
+  <rule id="100202" level="8">
+    <if_sid>100200</if_sid>
+    <field name="notification_suppressed">^false$</field>
+    <field name="record_kind">^detection$</field>
+    <description>seQuester monitored file activity on $(host)</description>
+  </rule>
+  <rule id="100203" level="5">
+    <if_sid>100200</if_sid>
+    <field name="notification_suppressed">^false$</field>
+    <field name="record_kind">^health$</field>
+    <description>seQuester sensor health or response event on $(host)</description>
+  </rule>
+  <rule id="100204" level="0">
+    <if_sid>100200</if_sid>
+    <field name="record_kind">^evidence$</field>
+    <description>seQuester forensic evidence update</description>
+  </rule>
+</group>

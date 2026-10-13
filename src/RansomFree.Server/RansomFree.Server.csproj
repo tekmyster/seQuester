@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile><Version>0.6.45</Version><AssemblyVersion>0.6.45.0</AssemblyVersion><FileVersion>0.6.45.0</FileVersion><InformationalVersion>0.6.45-dev</InformationalVersion></PropertyGroup>
+  <PropertyGroup><RuntimeIdentifiers>win-x64;linux-x64;linux-arm64</RuntimeIdentifiers></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RansomFree.Contracts\RansomFree.Contracts.csproj" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.12" />
+    <PackageReference Include="PDFsharp" Version="6.2.4" />
+    <PackageReference Include="QRCoder" Version="1.8.0" />
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="10.0.12" />
+    <EmbeddedResource Include="Fonts\*.ttf" />
+    <EmbeddedResource Include="Database\*.sql" />
+    <Compile Include="../../CanaryTemplates.cs" Link="CanaryTemplates.cs" />
+    <Compile Include="../../CallbackDocuments.cs" Link="CallbackDocuments.cs" />
+    <Compile Include="../../ImportedCanaries.cs" Link="ImportedCanaries.cs" />
+    <Compile Include="../../Syslog.cs" Link="Syslog.cs" />
+    <EmbeddedResource Include="../../Assets/canary.docx" LogicalName="RansomFree.Templates.canary.docx" />
+    <EmbeddedResource Include="../../Assets/canary.xlsx" LogicalName="RansomFree.Templates.canary.xlsx" />
+    <EmbeddedResource Include="../../Assets/canary.pdf" LogicalName="RansomFree.Templates.canary.pdf" />
+    <None Update="Fonts\bitstream-vera-license.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
+
+

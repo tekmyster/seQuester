@@ -1,0 +1,24 @@
+{
+  "SchemaVersion": 1,
+  "Server": "https://management.example.com",
+  "Folders": {},
+  "Monitor": "inotify",
+  "Audit": {
+    "Enabled": false,
+    "CaptureCommandLine": false,
+    "MaxInboxEvents": 4096,
+    "MaxInboxMiB": 64
+  },
+  "AllowRemoteProcessStop": false,
+  "AllowAutomaticProcessStop": false,
+  "Syslog": {
+    "Enabled": false,
+    "Host": "",
+    "Port": 514,
+    "Transport": "TLS",
+    "Format": "RFC5424",
+    "Facility": 16,
+    "Severity": 4,
+    "OctetCounting": true
+  }
+}

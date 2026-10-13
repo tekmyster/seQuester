@@ -1,0 +1,42 @@
+[Unit]
+Description=seQuester Linux Audit collector (outside auditd JIT restrictions)
+After=auditd.service
+Wants=auditd.service
+ConditionPathExists=/var/lib/sequester-audit
+
+[Service]
+Type=simple
+User=root
+Group=root
+# /proc peer checks require matching real/effective/saved GIDs as well as UIDs.
+# Inbox stays root:rfclient 2750; setgid inheritance keeps packets readable by
+# the endpoint without changing this collector's root primary group.
+ExecStart=/opt/ransomfree-client/current/app/RansomFree.LinuxAgent --audit-collect
+WorkingDirectory=/var/lib/sequester-audit
+RuntimeDirectory=sequester-audit
+RuntimeDirectoryMode=0700
+UMask=0027
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=15s
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX
+SystemCallArchitectures=native
+ReadWritePaths=/var/lib/sequester-audit /run/sequester-audit
+# Managed parser service needs JIT. Auditd's own MDWE setting remains untouched;
+# only the separate Native AOT relay is launched by auditd.
+
+[Install]
+WantedBy=multi-user.target

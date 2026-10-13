@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+ <ItemGroup>
+  <Compile Include="../../CallbackDocuments.cs" Link="CallbackDocuments.cs" />
+  <Compile Include="../../CanaryTemplates.cs" Link="CanaryTemplates.cs" />
+  <Compile Include="../../ImportedCanaries.cs" Link="ImportedCanaries.cs" />
+  <EmbeddedResource Include="../../Assets/canary.docx" LogicalName="RansomFree.Templates.canary.docx" />
+  <EmbeddedResource Include="../../Assets/canary.xlsx" LogicalName="RansomFree.Templates.canary.xlsx" />
+  <EmbeddedResource Include="../../Assets/canary.pdf" LogicalName="RansomFree.Templates.canary.pdf" />
+ </ItemGroup>
+</Project>

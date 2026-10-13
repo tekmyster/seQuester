@@ -1,0 +1,9 @@
+# Periodic kernel audit health - configuration version 1
+
+Files: sequester-audit-status-check.py, sequester-audit-status-check.service and sequester-audit-status-check.timer. Deployed helper path: /etc/ransomfree-client/sequester-audit-status-check.py; units in /etc/systemd/system. This is an addon configuration, not a sensor binary version change. stage-audit.sh retains its existing disabled staging behavior; this addon requires explicit installation and activation.
+
+Prerequisites: Python 3, existing protected root:rfclient 2750 inbox and reviewed audit-rule reconciliation. Preserve differing existing administrator files. Install helper root-owned 0755, units root-owned 0644, reload systemd, enable/start timer, start checker service. Verify kernel-health.json Enabled 1 or 2, Failure null, CheckedUtc less than 65 seconds old; rules-status.Success true, sensor/collector active, timer enabled/active.
+
+The checker reads actual auditctl status every 30 seconds, comparing enabled state, registered auditd PID, process start ticks and boot identity. Disabled/unavailable/changed kernel identity revokes stale rules-status.Success and records explicit kernel-health failure. It never enables kernel auditing, alters audit rules or restores failed rule coverage from status alone. Recovery requires the existing reviewed rule reconciler. Atomic metadata retains root ownership, inherited group, 0640 permissions and fsync. Collector remains capability-free; the separate root service uses the existing audit-helper capability boundary.
+
+Limit: the existing collector does not independently detect a stopped timer. Monitor timer liveness and metadata freshness. Historical dropped/rejected counters remain. Fixture: tools/test-audit-kernel-health.py (17 checks). Production: 26 fresh healthy timers verified in LINUX-KERNEL-HEALTH-FINAL-20261005.json. No production kernel-disable experiment performed.

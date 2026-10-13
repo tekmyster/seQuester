@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=seQuester Endpoint
+Comment=Read-only canary monitoring status
+Exec=/opt/ransomfree-client/current/desktop/RansomFree.UnixDesktop
+Icon=/opt/ransomfree-client/current/desktop/Branding/sequester-256.png
+Terminal=false
+Categories=System;Security;
+X-GNOME-Autostart-enabled=true

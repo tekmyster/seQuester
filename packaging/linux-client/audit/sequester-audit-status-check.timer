@@ -1,0 +1,11 @@
+[Unit]
+Description=seQuester periodic kernel audit status verification
+
+[Timer]
+OnBootSec=45s
+OnUnitActiveSec=30s
+AccuracySec=2s
+Unit=sequester-audit-status-check.service
+
+[Install]
+WantedBy=timers.target

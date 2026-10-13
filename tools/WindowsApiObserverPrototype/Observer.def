@@ -1,0 +1,4 @@
+LIBRARY Observer64
+EXPORTS
+    ObserverMarker @1
+    ObserverNtReadService @2

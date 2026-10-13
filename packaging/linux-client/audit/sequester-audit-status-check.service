@@ -1,0 +1,28 @@
+[Unit]
+Description=seQuester live kernel audit status verification
+After=auditd.service sequester-audit-rules.service
+ConditionPathExists=/var/lib/sequester-audit/rules-status.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -I /etc/ransomfree-client/sequester-audit-status-check.py
+NoNewPrivileges=true
+CapabilityBoundingSet=CAP_AUDIT_CONTROL CAP_AUDIT_READ
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_NETLINK
+SystemCallArchitectures=native
+ReadWritePaths=/var/lib/sequester-audit
+UMask=0027
+TimeoutStartSec=20s

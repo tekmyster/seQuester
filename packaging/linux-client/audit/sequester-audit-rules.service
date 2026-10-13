@@ -1,0 +1,37 @@
+[Unit]
+Description=seQuester exact canary audit rule loader
+After=auditd.service local-fs.target remote-fs.target
+BindsTo=auditd.service
+PartOf=auditd.service
+Before=ransomfree-client.service
+ConditionPathExists=/etc/ransomfree-client/sequester-audit.rules
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/ransomfree-client/current/app/RansomFree.LinuxAgent --audit-reconcile-rules
+RemainAfterExit=yes
+NoNewPrivileges=true
+CapabilityBoundingSet=CAP_AUDIT_CONTROL CAP_AUDIT_READ
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_NETLINK
+SystemCallArchitectures=native
+ReadWritePaths=/var/lib/sequester-audit
+TimeoutStartSec=120s
+# Deliberately separate from auditd's ProtectHome/MDWE namespace. This does not
+# change auditd. Files/mounts must exist before loading; add approved mount ordering.
+# Adds only missing reviewed rules and verifies retained unrelated inventory.
+# Stops visibly on conflicts/partial failure; no automatic deletion/blind retry.
+
+[Install]
+WantedBy=auditd.service

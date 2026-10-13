@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Decoy jobs · seQuester</title><link rel="stylesheet" href="/console.css?v=decoy-history-20261012-r2"><script src="/decoy-jobs.js?v=decoy-history-20261012-r2" defer></script></head>
+<body id="decoy-jobs"><aside><div class="brand">seQuester</div><nav><a href="/">Management console</a></nav><p class="build-note">Windows virtual decoy jobs</p></aside><main><header><div><h1>Decoy jobs</h1><p>Manage Windows virtual drives and libraries. New decoys start disabled; retirement keeps backing folders.</p></div></header>
+<p id="job-notice" role="status" aria-live="polite">Checking sign-in…</p>
+<section id="job-editor" hidden><h2>Approve a job</h2><form id="job-form"><fieldset id="job-fields" class="history-filters">
+<label>Sensor ID<input name="endpoint" required pattern="[a-fA-F0-9]{32}" maxlength="32"></label>
+<label>Windows user SID<input name="sid" required maxlength="184"></label>
+<label>Private state folder<input name="state" required maxlength="180" placeholder="D:\DecoyState"></label>
+<label>Approved decoy folder<input name="root" required maxlength="180" placeholder="D:\Decoys"></label>
+<label>Decoy ID<input name="decoy" required pattern="[a-fA-F0-9]{32}" maxlength="32"></label>
+<label>Name<input name="name" required maxlength="60" pattern="[a-zA-Z0-9 _-]+"></label>
+<label>Type<select name="kind"><option value="V02">Virtual drive</option><option value="V03">Library</option></select></label>
+<label>Drive letter<input name="drive" maxlength="2" pattern="[E-Z]:" placeholder="X:"></label>
+<label>Action<select name="action"><option value="create">Create disabled</option><option value="observe">Check current state</option><option value="activate">Activate</option><option value="disable">Disable</option><option value="repair">Repair</option><option value="retire">Retire</option></select></label>
+<label>Resource revision<input name="revision" type="number" min="1" step="1"></label>
+<label>Administrator password<input name="password" type="password" autocomplete="current-password" required></label>
+<label>Verification or recovery code<input name="code" autocomplete="one-time-code" maxlength="32"></label>
+<button type="submit">Approve job</button><button id="job-new" class="secondary" type="button">New job</button></fieldset></form></section>
+<section><h2>Jobs</h2><p>Results are specific to the sensor and Windows user session. Jobs needing review pause later jobs on that sensor.</p><button id="job-refresh" class="secondary" type="button">Refresh</button><div class="table-wrap"><table><thead><tr><th scope="col">Sensor ID</th><th scope="col">Decoy / user</th><th scope="col">Action</th><th scope="col">Status</th><th scope="col">Last check</th><th scope="col">Details</th></tr></thead><tbody id="job-rows"></tbody></table><p id="jobs-empty" class="empty" hidden>No jobs yet.</p></div></section>
+<section id="job-review" hidden><h2>Review required</h2><p id="job-review-target"></p><p>Review the recorded check and resolve any uncertain native state before releasing later approved jobs. Evidence will be retained.</p><form id="job-review-form"><fieldset id="job-review-fields"><label>Review notes<input name="reason" maxlength="512" required></label><label>Administrator password<input name="password" type="password" autocomplete="current-password" required></label><label>Verification or recovery code<input name="code" maxlength="32" autocomplete="one-time-code"></label><button type="submit">Record review and release queue</button></fieldset></form></section>
+<section id="job-evidence" tabindex="-1" aria-labelledby="job-history-heading"><h2 id="job-history-heading">Job history</h2><div id="job-details" aria-live="polite"><p>Select a job’s History to see its results.</p></div></section></main></body></html>

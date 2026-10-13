@@ -1,0 +1,28 @@
+{
+  "index_patterns": ["sequester-events-1.x-*"],
+  "priority": 150,
+  "template": {
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "index.mapping.total_fields.limit": 3000
+    },
+    "mappings": {
+      "dynamic_templates": [
+        {"text_fields": {"match_mapping_type": "string", "mapping": {"type": "keyword", "ignore_above": 8192}}}
+      ],
+      "properties": {
+        "sequester_schema_version": {"type": "integer"},
+        "sensor_id": {"type": "keyword"},
+        "sensor_host": {"type": "keyword"},
+        "event_id": {"type": "keyword"},
+        "process_pid": {"type": "long"},
+        "actor_sha256": {"type": "keyword"},
+        "notification_suppressed": {"type": "boolean"},
+        "received_utc": {"type": "date"},
+        "transport_peer": {"type": "ip"},
+        "evidence": {"type": "object", "dynamic": true}
+      }
+    }
+  }
+}

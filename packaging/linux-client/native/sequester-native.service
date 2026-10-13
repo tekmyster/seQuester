@@ -1,0 +1,48 @@
+[Unit]
+Description=seQuester privileged native file evidence companion
+After=local-fs.target
+ConditionPathExists=/etc/sequester-native/installation.json
+
+[Service]
+Type=simple
+User=root
+Group=sequester-native
+RuntimeDirectory=sequester-native
+RuntimeDirectoryMode=0750
+RuntimeDirectoryPreserve=yes
+# systemd creates the directory with this root UID and dedicated group before
+# every command. An ExecStartPre chown would be reset before ExecStart.
+ExecStart=/opt/sequester-native/current/app/RansomFree.LinuxAgent --native-companion
+WorkingDirectory=/var/lib/sequester-native
+UMask=0077
+Environment=DOTNET_ENVIRONMENT=Production
+Environment=DOTNET_CLI_TELEMETRY_OPTOUT=1
+Environment=TMPDIR=/var/lib/sequester-native/tmp
+Restart=no
+# Retry only the managed exit issued after policy expiry, complete work drain
+# and verified native closure. Crashes/startup failures cannot authorize restart.
+RestartForceExitStatus=75
+RestartSec=10s
+# The main process owns native child shutdown and normal module unload.
+# A blocked kernel/file operation is reported as draining, never force-closed.
+KillMode=mixed
+KillSignal=SIGTERM
+SendSIGKILL=no
+TimeoutStopSec=infinity
+NoNewPrivileges=true
+# Native capabilities and device access require this exact unit to be qualified.
+# This does not disable host module signing, lockdown or other OS protections.
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX
+SystemCallArchitectures=native
+ReadWritePaths=/var/lib/sequester-native /var/lib/sequester-native-export /run/sequester-native
+
+[Install]
+WantedBy=multi-user.target

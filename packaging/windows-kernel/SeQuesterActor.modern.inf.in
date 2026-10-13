@@ -1,0 +1,50 @@
+; Qualification package for Windows 10 22H2 x64 (primitive driver).
+; Altitude and signing status are recorded separately in manifest.json.
+[Version]
+Signature = "$WINDOWS NT$"
+Class = ActivityMonitor
+ClassGuid = {b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}
+Provider = %Provider%
+DriverVer = @DRIVER_DATE@,@DRIVER_VERSION@
+CatalogFile = SeQuesterActor.cat
+PnpLockdown = 1
+
+[DestinationDirs]
+DriverFiles = 13
+
+[DefaultInstall.NTamd64]
+CopyFiles = DriverFiles
+
+[DefaultInstall.NTamd64.Services]
+AddService = SeQuesterActor,,ActorService
+
+[ActorService]
+DisplayName = %ServiceName%
+Description = %ServiceDescription%
+ServiceBinary = %13%\SeQuesterActor.sys
+ServiceType = 2
+StartType = 3
+ErrorControl = 1
+LoadOrderGroup = "FSFilter Activity Monitor"
+Dependencies = FltMgr
+AddReg = ActorInstances
+
+[ActorInstances]
+HKR,"Instances","DefaultInstance",0x00000000,"seQuester Actor Instance"
+HKR,"Instances\seQuester Actor Instance","Altitude",0x00000000,"@ALTITUDE@"
+HKR,"Instances\seQuester Actor Instance","Flags",0x00010001,0
+
+[DriverFiles]
+SeQuesterActor.sys
+
+[SourceDisksFiles]
+SeQuesterActor.sys = 1
+
+[SourceDisksNames]
+1 = %DiskName%,,,
+
+[Strings]
+Provider = "Tekmyster Industries, LLC"
+ServiceName = "seQuester Actor Capture"
+ServiceDescription = "seQuester operation-time process and security-context observations"
+DiskName = "seQuester actor driver qualification package"
