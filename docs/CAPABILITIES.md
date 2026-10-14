@@ -49,6 +49,8 @@ The new read/write/append SHA-256 whitelist binding has 130 fixture checks using
 
 ## Open integration work
 
+Commercial licensing is also open: the [third-party notices](../THIRD-PARTY-NOTICES.md) identify GPL-marked Linux capture source, libbpf/libauparse imports, custom Microsoft native licenses and other bundled native materials outside the new MIT/Apache-2.0-only policy. The automated license audit rejects these conflicts. Ownership headers and a proprietary license do not resolve or relicense them.
+
 | Work | Current state | What closes it |
 | --- | --- | --- |
 | Native active response | Policy/preview, exact target binding, durable journal and capability gates implemented. Owned-child legacy Windows termination tested. | Live native event-to-preservation-to-command execution with exact process exit and recovery checks. |

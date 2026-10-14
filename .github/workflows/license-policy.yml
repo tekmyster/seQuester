@@ -1,0 +1,28 @@
+# Copyright (c) 2026 Tekmyster Industries, LLC. All Rights Reserved.
+# seQuester — Proprietary Commercial License.
+
+name: License policy
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  license-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Test license checker
+        run: python tools/check-license-policy.py --self-test
+      - name: Check new-file headers
+        if: github.event_name == 'pull_request'
+        env:
+          LICENSE_BASE: ${{ github.event.pull_request.base.sha }}
+        run: python tools/check-license-policy.py --headers-only --base "$LICENSE_BASE"
+      - name: Audit library and native-source licenses
+        run: python tools/check-license-policy.py

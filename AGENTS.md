@@ -1,3 +1,14 @@
+# Source ownership and dependency policy
+
+- Source is private by default. Create new repositories as private; publishing source requires explicit human authorization. Existing explicit authorization applies only to the repository and scope authorized.
+- Copyright owner: **Tekmyster Industries, LLC**. First-party source uses [PRIVATE-LICENSE.md](PRIVATE-LICENSE.md).
+- Every new first-party file must include `Copyright (c) 2026 Tekmyster Industries, LLC. All Rights Reserved.` and `seQuester — Proprietary Commercial License.` Use valid comment syntax. Formats without comments use a same-name `.license` sidecar containing the required notice; do not alter API/data schemas to insert comments.
+- Preserve third-party ownership and upstream licenses. Do not stamp Tekmyster ownership over imported third-party material. New imports require retained notices, inventory and explicit owner review if the license is outside policy.
+- Core library dependencies, including transitive and bundled native components, must be MIT or Apache-2.0. GPL/LGPL/AGPL, other licenses, custom terms and unknown licenses are not approved. Do not infer native approval from a wrapper package's MIT license.
+- Track exact package versions and upstream terms in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). Update notices whenever dependencies change.
+- Run `python tools/check-license-policy.py --self-test` and `python tools/check-license-policy.py` before accepting dependency changes or declaring a compliant release. Use `--headers-only --base <ref>` to check new first-party files. Existing conflicts are failures, not grandfathered approvals.
+- Resolve a conflict through an actual replacement, supported separation or explicit owner policy change. Do not strip upstream notices, invent a license, or change GPL declarations merely to pass checks. Preserve working deployments during licensing work.
+
 # Permanent Product UX Contract
 
 Every UI change must follow [docs/PRODUCT-UX-CONTRACT.md](docs/PRODUCT-UX-CONTRACT.md). Its editorial review, deterministic checks and actual desktop/mobile browser review are required completion gates. Preserve functionality, API contracts, validation, diagnostics, accessibility and necessary security information. This requirement applies to future work by every coding agent and does not authorize unrelated redesigns.

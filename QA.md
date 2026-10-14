@@ -1,3 +1,11 @@
+# Ownership and dependency policy - October 13, 2026
+
+Added PRIVATE-LICENSE.md and THIRD-PARTY-NOTICES.md with Tekmyster Industries, LLC ownership and the requested proprietary header. Updated repository/workspace instructions: source private by default, explicit publication authorization, MIT/Apache-2.0-only core libraries, exact-version notices and preserved upstream attribution. Existing explicit public-repository authorization remains in effect.
+
+The inventory covers 107 locked application package/version pairs using exact-version restored NuGet metadata. The policy check currently reports 40 conflicts, including GPL-marked Linux sources/imports, three file-licensed packages, SQLite public-domain native code and Skia native BSD terms. This is an expected compliance rejection, not a passing audit or a claim that those components are unusable under other policies. No source license declarations or operating deployments were altered to conceal conflicts.
+
+Verification: checker self-tests pass allowed/rejected expression controls, required-file headers, missing-header rejection and structured JSON sidecars. New license/documentation links resolve. A read-only pull-request/manual GitHub workflow runs header and strict dependency checks; repository branch protection was not modified. Full embedded/native attribution and compliant release remain open.
+
 # Source layout migration - October 13, 2026
 
 Renamed 17 source/test directories and 16 managed project files to the seQuester prefix in the published repository and current local development checkout. Preserved assembly names/root namespaces and existing deployed service/API/data identities. Updated project references, static and dynamic packaging paths, documentation, test runner output resolution and UX file selection.

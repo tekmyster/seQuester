@@ -1,3 +1,7 @@
+# October 13: proprietary source and dependency policy
+
+Copyright owner: Tekmyster Industries, LLC. Added [PRIVATE-LICENSE.md](PRIVATE-LICENSE.md), [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md), permanent new-file/private-source requirements and automated header/license checks. The inventory covers 107 locked package/version pairs. Strict MIT/Apache-2.0 compliance remains incomplete: 40 current audit findings include GPL-marked Linux components and other native-license conflicts. Existing deployments and third-party notices are preserved; no compliant-release claim is made.
+
 # October 13: seQuester source layout
 
 Source and test folders and managed project filenames now use seQuester. Assemblies, namespaces and installed service/data identities remain compatible. See [Repository layout](docs/REPOSITORY-LAYOUT.md) for build paths and [QA.md](QA.md) for migration verification.

@@ -44,5 +44,6 @@ The guides above provide the application overview. Use these references for plat
 - [Active response plan](ACTIVE-RESPONSE-PLAN.md) and [Wazuh integration](WAZUH-INTEGRATION.md)
 - [Integration checkpoint](RESPONSE-POLICY-INTEGRATION-20261012.md) and [historical open work](CURRENT-OPEN-WORK.md)
 - [Product UX Contract](PRODUCT-UX-CONTRACT.md)
+- [Proprietary license](../PRIVATE-LICENSE.md) and [third-party notices](../THIRD-PARTY-NOTICES.md)
 
 Historical entries describe the state at their recorded time. They do not override newer capability or integration updates.

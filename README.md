@@ -2,6 +2,12 @@
 
 Endpoint honeypot monitoring, canary callbacks, process attribution and forensic evidence collection, with a central management server and web interface.
 
+## License
+
+Copyright (c) 2026 Tekmyster Industries, LLC. All Rights Reserved.
+
+seQuester uses a [proprietary commercial license](PRIVATE-LICENSE.md). Public source access does not grant an open-source license. Core library policy permits MIT and Apache-2.0; the [third-party notices](THIRD-PARTY-NOTICES.md) record exact dependencies and existing conflicts that still prevent a compliant release.
+
 ## Documentation
 
 Start with the [documentation index](docs/README.md).
