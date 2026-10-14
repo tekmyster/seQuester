@@ -1,3 +1,7 @@
+# October 13: Community and Enterprise license terms
+
+[LICENSE](LICENSE) now grants free Community use and defines commercial Enterprise/OEM requirements and free unlimited Enterprise licensing for verified non-profits. [Editions](docs/EDITIONS.md) explains eligibility and the small-business 50-endpoint boundary. License-key validation and commercial feature enforcement are not implemented; listed Enterprise entitlements do not close existing feature or dependency-policy gaps.
+
 # October 13: proprietary source and dependency policy
 
 Copyright owner: Tekmyster Industries, LLC. Added [PRIVATE-LICENSE.md](PRIVATE-LICENSE.md), [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md), permanent new-file/private-source requirements and automated header/license checks. The inventory covers 107 locked package/version pairs. Strict MIT/Apache-2.0 compliance remains incomplete: 40 current audit findings include GPL-marked Linux components and other native-license conflicts. Existing deployments and third-party notices are preserved; no compliant-release claim is made.

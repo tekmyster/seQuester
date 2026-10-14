@@ -1,7 +1,7 @@
 # Source ownership and dependency policy
 
 - Source is private by default. Create new repositories as private; publishing source requires explicit human authorization. Existing explicit authorization applies only to the repository and scope authorized.
-- Copyright owner: **Tekmyster Industries, LLC**. First-party source uses [PRIVATE-LICENSE.md](PRIVATE-LICENSE.md).
+- Copyright owner: **Tekmyster Industries, LLC**. First-party source uses [LICENSE](LICENSE), with Community and Enterprise rights. Native sources retain their original licenses under Section 6. Preserve those terms without automatically approving core integration.
 - Every new first-party file must include `Copyright (c) 2026 Tekmyster Industries, LLC. All Rights Reserved.` and `seQuester — Proprietary Commercial License.` Use valid comment syntax. Formats without comments use a same-name `.license` sidecar containing the required notice; do not alter API/data schemas to insert comments.
 - Preserve third-party ownership and upstream licenses. Do not stamp Tekmyster ownership over imported third-party material. New imports require retained notices, inventory and explicit owner review if the license is outside policy.
 - Core library dependencies, including transitive and bundled native components, must be MIT or Apache-2.0. GPL/LGPL/AGPL, other licenses, custom terms and unknown licenses are not approved. Do not infer native approval from a wrapper package's MIT license.

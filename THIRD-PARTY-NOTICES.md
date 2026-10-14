@@ -7,7 +7,7 @@
 
 ## Policy
 
-seQuester first-party source uses the [proprietary commercial license](PRIVATE-LICENSE.md). Approved core library licenses are **MIT** and **Apache-2.0**. Upstream copyrights and license terms remain intact. A package's permissive wrapper license does not automatically approve every embedded native component.
+seQuester first-party source uses the [Community and Enterprise license](LICENSE). Native capture sources and dependencies retain their original terms under Section 6. Approved core library licenses remain **MIT** and **Apache-2.0**. Retaining original licenses is not automatic approval for core integration. A package's permissive wrapper license does not automatically approve every embedded native component.
 
 This inventory was assembled on October 13, 2026 from the eight application package lockfiles and exact-version NuGet metadata in the restored package cache. It covers 107 locked package/version pairs, including desktop runtime variants. Tests, tools, SDK/runtime internals and all nested native materials are not represented as fully audited by this table.
 
@@ -20,7 +20,7 @@ This inventory was assembled on October 13, 2026 from the eight application pack
 | Microsoft.Data.SqlClient.SNI.runtime 6.0.2 | Package LICENSE.txt contains Microsoft Software License Terms. | Not MIT/Apache-2.0; replace or obtain an explicit policy decision. |
 | Microsoft.Identity.Client.NativeInterop 0.20.6 | Package LICENSE contains Microsoft Software License Terms. | Not MIT/Apache-2.0; replace or obtain an explicit policy decision. |
 | Avalonia.Angle.Windows.Natives 2.1.27548.20260419 | Packaged LICENSE uses BSD-style redistribution terms. | Outside the allowlist. |
-| Linux actor-lease modules, BPF programs and supporting source | GPL-2.0-only SPDX declarations and GPL module/program declarations in src/seQuester.LinuxKernel. | Conflicts with proprietary-only core source policy; preserve declarations until a valid architectural/licensing resolution. |
+| Linux actor-lease modules, BPF programs and supporting source | GPL-2.0-only SPDX declarations and GPL module/program declarations in src/seQuester.LinuxKernel. | Original licenses remain under Section 6; core integration boundaries and redistribution obligations still need qualification against the MIT/Apache-only core policy. |
 | libbpf | Direct imports in seQuester.Client and native loaders; upstream LGPL-2.1-only OR BSD-2-Clause. | Neither license is MIT/Apache-2.0; not approved. |
 | libauparse | Direct imports in seQuester.LinuxAgent/AuditParser.cs; upstream LGPL-2.1-or-later. | Not approved. |
 | SQLite native engine | Included through SQLitePCLRaw native packages; upstream public-domain dedication. | Not one of the two specified licenses; requires a policy decision or replacement. |

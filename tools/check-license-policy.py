@@ -106,7 +106,7 @@ def audit(root):
         text = file.read_text(encoding="utf-8-sig", errors="replace")
         relative = file.relative_to(root).as_posix()
         if re.search(r"SPDX-License-Identifier:[^\r\n]*(?:GPL|LGPL|AGPL)", text) or re.search(r'MODULE_LICENSE\("GPL', text):
-            failures.append(f"{relative}: copyleft declaration conflicts with core source policy")
+            failures.append(f"{relative}: copyleft component retains its license; strict core inclusion requires boundary review")
         if "DllImport" in text and re.search(r"libbpf|libauparse", text):
             failures.append(f"{relative}: native library outside MIT/Apache-2.0 policy; see notices")
     return records, failures
@@ -123,7 +123,7 @@ def main():
             assert ALLOWED.fullmatch(expression)
         for expression in ("GPL-2.0-only", "LGPL-2.1-only", "BSD-3-Clause", "MIT OR GPL-2.0-only", "", "LicenseRef-Commercial"):
             assert not ALLOWED.fullmatch(expression)
-        required_files = [ROOT / "PRIVATE-LICENSE.md", ROOT / "THIRD-PARTY-NOTICES.md", Path(__file__), ROOT / ".github/workflows/license-policy.yml"]
+        required_files = [ROOT / "LICENSE", ROOT / "LICENSE-COMMERCIAL", ROOT / "PRIVATE-LICENSE.md", ROOT / "THIRD-PARTY-NOTICES.md", ROOT / "docs/EDITIONS.md", Path(__file__), ROOT / ".github/workflows/license-policy.yml"]
         for file in required_files:
             text = file.read_text(encoding="utf-8")[:4096]
             assert OWNER in text and TERMS in text, f"Required header missing: {file.name}"

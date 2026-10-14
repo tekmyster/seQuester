@@ -9,6 +9,7 @@ This documentation describes the development source published on October 13, 202
 | You want to… | Read |
 | --- | --- |
 | Understand the product and investigate activity | [User guide](USER-GUIDE.md) |
+| Choose Community or Enterprise licensing | [Editions](EDITIONS.md) |
 | Enroll sensors, publish policies and configure delivery | [Administrator guide](ADMINISTRATOR-GUIDE.md) |
 | Install, upgrade or recover the application | [Deployment and operations](DEPLOYMENT-AND-OPERATIONS.md) |
 | Understand event capture, evidence and storage | [Architecture and evidence](ARCHITECTURE-AND-EVIDENCE.md) |
@@ -44,6 +45,6 @@ The guides above provide the application overview. Use these references for plat
 - [Active response plan](ACTIVE-RESPONSE-PLAN.md) and [Wazuh integration](WAZUH-INTEGRATION.md)
 - [Integration checkpoint](RESPONSE-POLICY-INTEGRATION-20261012.md) and [historical open work](CURRENT-OPEN-WORK.md)
 - [Product UX Contract](PRODUCT-UX-CONTRACT.md)
-- [Proprietary license](../PRIVATE-LICENSE.md) and [third-party notices](../THIRD-PARTY-NOTICES.md)
+- [Community/Enterprise license](../LICENSE), [commercial licensing](../LICENSE-COMMERCIAL) and [third-party notices](../THIRD-PARTY-NOTICES.md)
 
 Historical entries describe the state at their recorded time. They do not override newer capability or integration updates.

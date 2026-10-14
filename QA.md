@@ -1,3 +1,13 @@
+# Community and Enterprise license update - October 13, 2026
+
+Adopted the user-supplied Community/Enterprise terms in canonical LICENSE. PRIVATE-LICENSE.md now points to LICENSE rather than denying all unlicensed use. LICENSE-COMMERCIAL identifies the separate agreement/contact process without inventing pricing, SLA or executed paid terms. Added docs/EDITIONS.md and updated README, capabilities, notices and instructions.
+
+Clarified the conflicting summary by applying the 50-endpoint threshold to small businesses, following Section 2(d); personal/homelab/education have no endpoint cap under this interpretation, while Enterprise-only features remain licensed. This was an explicit working assumption after an optional clarification question, not a confirmed new user answer. The exact 50 boundary, all-site business scope, MSP/MSSP requirement and verified non-profit unlimited/non-expiring Enterprise terms are documented.
+
+No Community/Enterprise key validator, commercial feature gate or endpoint-cap implementation was found in source. Documentation states that boundary and separates bootstrap/enrollment credentials from license keys. Native source licenses are preserved under Section 6; the MIT/Apache-only core policy and all 40 existing dependency findings remain unresolved.
+
+Verification: license policy self-tests pass header/sidecar and allow/reject controls; 63 updated license/documentation references resolve and key supplied license terms are present. Strict audit checks 107 locked package/version pairs and correctly exits nonzero on the same 40 findings. No runtime, deployment, credentials, billing or license issuance was changed.
+
 # Ownership and dependency policy - October 13, 2026
 
 Added PRIVATE-LICENSE.md and THIRD-PARTY-NOTICES.md with Tekmyster Industries, LLC ownership and the requested proprietary header. Updated repository/workspace instructions: source private by default, explicit publication authorization, MIT/Apache-2.0-only core libraries, exact-version notices and preserved upstream attribution. Existing explicit public-repository authorization remains in effect.

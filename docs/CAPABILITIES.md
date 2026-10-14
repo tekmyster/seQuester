@@ -49,7 +49,9 @@ The new read/write/append SHA-256 whitelist binding has 130 fixture checks using
 
 ## Open integration work
 
-Commercial licensing is also open: the [third-party notices](../THIRD-PARTY-NOTICES.md) identify GPL-marked Linux capture source, libbpf/libauparse imports, custom Microsoft native licenses and other bundled native materials outside the new MIT/Apache-2.0-only policy. The automated license audit rejects these conflicts. Ownership headers and a proprietary license do not resolve or relicense them.
+Edition licensing is defined in [LICENSE](../LICENSE) and [Editions](EDITIONS.md). Community/Enterprise key validation, endpoint-limit enforcement and commercial feature gates are not implemented. The listed Enterprise entitlements do not establish completion of HA, response, signed-package or integration capabilities.
+
+Dependency-policy work is also open: the [third-party notices](../THIRD-PARTY-NOTICES.md) identify GPL-marked Linux capture source, libbpf/libauparse imports, custom Microsoft native licenses and other bundled native materials outside the MIT/Apache-2.0-only core policy. Native sources retain their original terms under LICENSE Section 6; that does not automatically establish compliant core integration or redistribution. The strict audit remains a failed acceptance gate.
 
 | Work | Current state | What closes it |
 | --- | --- | --- |

@@ -1,0 +1,105 @@
+// Copyright (c) 2026 Tekmyster Industries, LLC. All Rights Reserved.
+// seQuester — Proprietary Commercial License.
+
+# seQuester License
+# Free for Homelabs & Non-Profits — Community Edition
+
+Copyright (c) 2026 Tekmyster Industries, LLC. All Rights Reserved.
+https://tekmyster.com
+
+This license governs the seQuester project.
+
+---
+
+## 1. Definitions
+
+"Community Use" means personal, homelab, educational, research, and qualified non-profit use.
+"Commercial Use" means use by a business, MSP, government, or any organization for commercial benefit.
+"Endpoints" means unique enrolled agents (Windows or Linux).
+
+## 2. Free Community Edition — No License Key Required
+
+You may use, self-host, modify for internal use, and run seQuester for FREE if you are:
+
+a) **Homelab / Personal / Individual** — any individual using it for personal learning, home network, or lab.
+
+b) **Non-Profit** — a registered 501(c)(3) or international equivalent. You qualify for **Free Enterprise Unlimited** — email proof to nonprofits@tekmyster.com for a free Enterprise key.
+
+c) **Education** — K-12, college, university, research lab, student.
+
+d) **Small Business Under Limit** — A business with FEWER than 50 enrolled endpoints across all sites.
+
+The endpoint limit in paragraph (d) applies to small businesses, not personal, homelab or education use. Enterprise-only features remain subject to Section 3.
+
+What you get free:
+
+- seQuester.Server (management server + web UI + persistence)
+- seQuester.Receiver (canary callback receiver)
+- seQuester.Agent (Windows sensor service)
+- seQuester.LinuxAgent (Linux sensor)
+- seQuester.WindowsKernel + LinuxKernel (native capture sources)
+- Canary templates, evidence collection, process attribution, forensic bundles
+- Syslog forwarding, local history, community support via GitHub Issues
+
+## 3. Enterprise Edition — Requires License Key
+
+You need a commercial license if you are:
+
+- A business with 50+ endpoints
+- An MSP / MSSP managing client endpoints
+- Requiring HA, active response, advanced whitelist controls, Linux hash-based whitelisting, Wazuh premium integration, signed MSI / packages, SSO, or SLA/support
+
+Contact: licensing@tekmyster.com
+
+Enterprise features:
+
+- Active response and process controls
+- Advanced whitelist and deployment path leasing
+- Hash-based whitelisting (Linux)
+- Wazuh / SIEM premium integration
+- Central deployment tooling and signed installers
+- HA server and migration support
+- Priority support and custom canary packs
+
+## 4. Non-Profit Enterprise — Free Unlimited
+
+We are free forever for non-profits.
+
+Email nonprofits@tekmyster.com with:
+
+- Organization name
+- 501(c)(3) determination letter or international equivalent
+- Estimated endpoint count
+
+We issue a free Enterprise key, unlimited endpoints, no expiration for qualified orgs.
+
+## 5. Restrictions
+
+You may NOT:
+
+a) Offer seQuester as a hosted SaaS / multi-tenant service to third parties without a commercial OEM license.
+b) Remove copyright notices or license gates.
+c) Redistribute Enterprise-only binaries without a license.
+
+You MAY self-host for your own organization, modify internally, and contribute back via PR.
+
+## 6. Third-Party Components
+
+Native capture sources and dependencies retain their original licenses. See THIRD-PARTY-NOTICES.md and license notices in src/.
+
+## 7. No Warranty
+
+Provided AS-IS. No warranty. See LICENSE-COMMERCIAL for paid terms.
+
+---
+
+### Summary
+
+| Edition | Who | Endpoints | Cost |
+| --- | --- | --- | --- |
+| Community | Homelab, personal, education | No endpoint limit; Enterprise-only features require an Enterprise license | FREE |
+| Community | Small business | Fewer than 50 across all sites | FREE |
+| Non-Profit Enterprise | Verified 501(c)(3) / equivalent | Unlimited | FREE |
+| Enterprise | Business 50+, MSP/MSSP, or users requiring Enterprise features/support | Per commercial agreement; MSP/MSSP requirement applies at any count | Paid |
+
+Tekmyster Industries, LLC — licensing@tekmyster.com — nonprofits@tekmyster.com

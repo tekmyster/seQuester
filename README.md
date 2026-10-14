@@ -6,7 +6,11 @@ Endpoint honeypot monitoring, canary callbacks, process attribution and forensic
 
 Copyright (c) 2026 Tekmyster Industries, LLC. All Rights Reserved.
 
-seQuester uses a [proprietary commercial license](PRIVATE-LICENSE.md). Public source access does not grant an open-source license. Core library policy permits MIT and Apache-2.0; the [third-party notices](THIRD-PARTY-NOTICES.md) record exact dependencies and existing conflicts that still prevent a compliant release.
+seQuester uses [Community and Enterprise terms](LICENSE). Community is free for personal, homelab and education use, and for businesses with fewer than 50 enrolled Windows/Linux endpoints across all sites. Qualified non-profits can obtain free unlimited Enterprise licensing.
+
+Businesses with 50+ endpoints, MSPs/MSSPs and users needing Enterprise features require an Enterprise license. Hosted services for third parties require an OEM agreement. See [Editions](docs/EDITIONS.md) and [commercial licensing](LICENSE-COMMERCIAL).
+
+License-key validation and commercial feature gates are not implemented in the current source. Core library policy remains MIT/Apache-2.0; [third-party notices](THIRD-PARTY-NOTICES.md) record the unresolved dependency findings.
 
 ## Documentation
 
